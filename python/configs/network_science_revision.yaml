@@ -1,0 +1,109 @@
+default_suites:
+  - headline
+  - sensitivity
+  - beta_k_heatmap
+  - heterogeneous_capacity
+
+defaults:
+  output_dir: results/benchmark_revision
+  seed_base: 1729
+  m0: 5
+  eps: 1.0e-9
+  impedance: power
+  impedance_lambda: 1.0
+  capacity_mode: constant
+  degree_threshold: 10
+  diameter_max_nodes: 2000
+  example_network_final_nodes: 1000
+
+suites:
+  headline:
+    type: explicit
+    replications: 16
+    final_nodes: [200, 1000]
+    scenarios:
+      - scenario_name: ba_benchmark
+        alpha: 1.0
+        beta: 0.0
+        phi: 0.0
+        kappa: 2
+        K: very_large
+      - scenario_name: capacity_only
+        alpha: 1.0
+        beta: 1.0
+        phi: 0.0
+        kappa: 2
+        K: 16
+      - scenario_name: spatial_only
+        alpha: 1.0
+        beta: 0.0
+        phi: 1.0
+        kappa: 2
+        K: very_large
+      - scenario_name: general_model
+        alpha: 1.0
+        beta: 1.0
+        phi: 1.0
+        kappa: 2
+        K: 16
+
+  sensitivity:
+    type: one_factor
+    replications: 12
+    final_nodes: [1000]
+    baseline:
+      alpha: 1.0
+      beta: 1.0
+      phi: 1.0
+      kappa: 2
+      K: 16
+    vary:
+      alpha: [0.5, 1.0, 1.5]
+      beta: [0.0, 0.5, 1.0, 2.0]
+      phi: [0.0, 0.5, 1.0, 2.0]
+      kappa: [1, 2, 4]
+      K: [8, 16, 32, very_large]
+
+  beta_k_heatmap:
+    type: grid
+    replications: 12
+    final_nodes: [1000]
+    fixed:
+      alpha: 1.0
+      phi: 1.0
+      kappa: 2
+      K: 16
+    beta: [0.0, 0.5, 1.0, 2.0]
+    K: [8, 16, 32, very_large]
+
+  heterogeneous_capacity:
+    type: explicit
+    replications: 16
+    final_nodes: [1000]
+    scenarios:
+      - scenario_name: constant_capacity
+        alpha: 1.0
+        beta: 1.0
+        phi: 1.0
+        kappa: 2
+        K: 16
+      - scenario_name: uniform_capacity
+        alpha: 1.0
+        beta: 1.0
+        phi: 1.0
+        kappa: 2
+        K: uniform_8_24
+        capacity_mode: uniform
+        capacity_params:
+          low: 8
+          high: 24
+      - scenario_name: lognormal_capacity
+        alpha: 1.0
+        beta: 1.0
+        phi: 1.0
+        kappa: 2
+        K: lognormal_mean16
+        capacity_mode: lognormal
+        capacity_params:
+          mean: 2.647588722239781
+          sigma: 0.5

@@ -1,0 +1,440 @@
+
+\documentclass{article}[12pt]
+\usepackage{comment}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}  
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amssymb,mathtools}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{breqn}  
+\usepackage{multirow}
+\usepackage{ragged2e}
+\usepackage{dcolumn}
+\usepackage{array}
+\usepackage{appendix}
+\usepackage{booktabs}
+\usepackage{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{graphics}
+\usepackage{pdflscape}
+\usepackage[sort,comma]{natbib}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{float}
+\usepackage{url}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{authblk}
+\usepackage{hyperref}
+\hypersetup
+{
+  bookmarks=true,         
+  unicode=false,          
+  pdftoolbar=true,     
+  pdfmenubar=true,        
+  pdffitwindow=false,   
+  pdfstartview={FitH},   
+  pdftitle={My title},    
+  pdfauthor={Author},     
+  pdfsubject={Subject},   
+  pdfcreator={Creator},   
+  pdfproducer={Producer}, 
+  pdfkeywords={keywords}, 
+  pdfnewwindow=true,     
+  colorlinks=true,      
+  linkcolor=blue,        
+  citecolor=blue,       
+  filecolor=magenta,      
+  urlcolor=blue          
+}
+
+\usepackage{listings} 
+\usepackage{xcolor}
+\lstset{
+  language=Matlab,  
+  frame=shadowbox, 
+  rulesepcolor=\color{red!20!green!20!blue!20},
+  keywordstyle=\color{blue!90}\bfseries, 
+  commentstyle=\color{red!10!green!70}\textit,   
+  showstringspaces=false,
+  numbers=left, 
+  numberstyle=\tiny,    
+  stringstyle=\ttfamily, 
+  breaklines=true, 
+  extendedchars=false,  
+  escapebegin=\begin{CJK*},escapeend=\end{CJK*},    
+  texcl=true}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+\newcommand{\tablespace}{\\[1.25mm]}
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}        
+\newcommand\tstrut{\rule{0pt}{2.0ex}}         
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}
+
+\title{A General Model of Network Growth: Preferential Attachment with Capacity, Cost, and Connectivity}
+\author{Nazanin Tajik  \and Somwrita Sarkar \and Alireza Ermagun \and David Levinson }
+\date{\today}
+
+
+\begin{document}
+
+\title{A General Model of Network Growth: Preferential Attachment with Capacity, Cost, and Connectivity}
+\author{Nazanin Tajik  \and Somwrita Sarkar \and Alireza Ermagun \and David Levinson}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+We propose a unifying, access-based model of network growth in which the probability that a new link attaches to an existing node is proportional to the \emph{marginal change in access, net of cost}.  Access is an auditable, measurable quantity from transport and communication systems; costs capture distance, delay, or monetary expense.  The rule yields a tunable kernel that reduces to well known families---preferential attachment, spatial attachment, capacity-limited processes, and hidden-metric/fitness formulations---as special cases.  The model explains when power-law tails emerge and when they \emph{do not}, due to capacity slack and spatial friction, and it delivers practical calibration against observed networks.  Simulations illustrate the qualitative regimes; a companion empirical section outlines how to fit the model on spatially embedded and capacitated networks. 
+\end{abstract}
+
+\section{Introduction}
+Many generative models reproduce heavy-tailed degree distributions, yet they often treat the link-choice mechanism as an abstract function of popularity, fitness, or distance.  We instead posit that links form to maximize \emph{marginal access}---the increase in the ability of an origin to reach valued destinations---minus generalized costs.  This \emph{access first} mechanism is transparent, empirically measurable, and nests classical preferential attachment (PA) as a limit.  It aligns with long-standing access theory in transport and communication systems, while retaining the parsimony of growth models.
+
+\paragraph{Contributions.} 
+\begin{itemize}
+    \item  We formalize a \emph{marginal-access} growth rule and derive a compact, multiplicative kernel that embeds degree effects, capacity slack, and spatial friction. 
+    \item We provide a \emph{model dictionary} mapping parameter settings to BA/PA, spatial PA, degree-capped attachment, and fitness/hidden-metric models. 
+    \item  We document asymptotic regimes in which capacity and spatial friction truncate heavy tails, reconciling growth models with the ``scale-free is rare'' evidence. 
+    \item  We outline a calibration strategy that compares the access-based rule to PA, spatial PA, HOT-style cost--performance, and fitness baselines using both topological and spatial fit criteria.
+\end{itemize}
+
+\section{Related work}
+Preferential attachment explains broad classes of heavy-tailed networks \citep{barabasi1999emergence}, but distance-weighted and geometry-aware variants show that spatial friction shapes clustering, path lengths, and tail exponents. Capacity- or age-limited attachment produces exponential or stretched-exponential cutoffs, while fitness and hidden-metric models replace popularity with latent heterogeneity. Internet-inspired cost--performance formulations show that power laws can arise without pure PA. Finally, a growing literature argues that universal scale-freeness is rare, pushing for models that explain \emph{when} heavy tails appear.  Our aim is not to add yet another kernel, but to place an \emph{access-based} objective at the center and to show it nests, clarifies, and calibrates these families.
+%\footnote{Pointers to detailed prior art are preserved in the original draft's review; we keep the bibliography and reuse keys such as \citet{barabasi1999emergence,willinger2009mathematics,holme2019rare,wu2020unifying}.}
+
+% ==== BEGIN original detailed review from the draft (retained) ====
+ % Alireza
+Universality — the ability to explain the complex phenomena through a shared emergent property — is the main feature of scale-free networks that bestows them  popularity and appeal among natural scientists.  This `claimed' feature, however, set the stage for advocates and detractors from early on. 
+
+Critics have questioned Barabasi and Albert’s view on generalizing infinite system features — emergence, universality, and scale-freeness — to finite and complicatedly constrained real-world systems \citep{holme2019rare}  by claiming that: 
+\begin{itemize}
+    \item  Despite degree distribution, the actual networks are not scale-free \citep{newman2003structure,stumpf2005subnets,tanaka2005scale,ko2008rethinking,guo2010s} , 
+and 
+    \item The degree distribution does not follow power laws \citep{dorogovtsev2000generic,jones2003sexual,clauset2009power,lima2009powerful,prvzulj2007biological,golosovsky2017power,broido2019scale,voitalov2019scale,hartmann2021searching,smith2021scarcity}.
+\end{itemize}
+    
+Several opponent studies refute the claimed `universal scale-freeness' of networks relying on statistical methods more rigorous than double logarithmic scale linear regression \citep{jones2003sexual,dorogovtsev2000generic,li2005towards,tanaka2005scale,khanin2006scale,jackson2007meeting,clauset2009power,lima2009powerful,prvzulj2007biological,willinger2009mathematics,stumpf2012critical,golosovsky2017power,broido2019scale,voitalov2019scale,hartmann2021searching,smith2021scarcity}. 
+
+Their methods include, but are not limited to, structural similarity measures \citep{prvzulj2007biological}, nonlinear stochastic simulation \citep{golosovsky2017power}, thresholding Pearson correlations \citep{khanin2006scale}, likelihood ratio test \citep{broido2019scale}, long-term clustering coefficient and average path length analysis \citep{hartmann2021searching}, tail exponent estimation Model \citep{voitalov2019scale}, continuous approximation cumulative degree distribution model \citep{golosovsky2017power}, central limit theorem \citep{stumpf2005sampling}, degree distribution fit analysis \citep{dorogovtsev2000generic,stumpf2005subnets,tanaka2005scale,lima2009powerful}, and a scaling parameter estimator \citep{jones2003sexual,clauset2009power}.
+
+From a more data-centric perspective, several opponent studies utilize network datasets much larger and more generalized than the ones used in proponent studies \citep{newman2003structure,clauset2009power,prvzulj2007biological,broido2019scale,smith2021scarcity}. 
+
+Scale-freeness is an idealization that results from examining only a special case, values within a particular range. Both biological and physical infrastructure systems have limits to growth, or what economists would refer to as economies and diseconomies of scale. Economies (diseconomies) of scale indicate a situation where the cost of production an additional unit falls (rises) with each additional unit. 
+In cities, economies of scale or economies of urbanisation, include features like increased information exchange and variety, while diseconomies of urbanisation include negative externalities like congestion, crowding,  and pollution. 
+
+
+
+In this paper we introduce a modelling approach that relies on first principles and overcomes the above limitations of the original preferential attachment model. The proposed form is more general and matches more observed cases than the traditional preferential attachment model, while covering the original cases as accurately.
+
+
+
+%ROADMAP PARAGRAPH
+
+%
+% ==== END original detailed review from the draft ====
+
+\section{Model: access-based link formation}
+% ==== BEGIN original access motivation (retained) ====
+Access is the ability to reach valued destinations. The General Theory of Access \citep{levinson2020towards} proposes ``The only reason to locate anywhere is to be near some people, places, and things, be far from others, and possess still others.'' We extend this and propose the only reason to `forge' links is to enable more access; that is, to reach desired activities, meet and have continuing relations with people of interest, and pursue preferred interactions. We posit this applies to any intentionally created links, be they physical infrastructure, communications, or social networks. In subsequent research, the focus could potentially expand to incorporate self-organized complex systems, wherein advantageous connections emerge and are bolstered through a specific mechanism. This mechanism can be exemplified by fluvial networks within a valley system: they aggregate surface runoff and concurrently carve deeper channels, thereby augmenting their conduciveness for water flow. Such systems typify dynamic equilibrium between their elements, reflecting an adaptive balance between natural evolution and environmental constraints.
+
+Generalized Access, the measurement of all the things that someone can reach from origin ($o$) is operationalized as:
+
+\begin{equation}
+    \mathbf{A_{o}} = \sum\limits_{d=1}^D g(\mathbf{O_{d}})  f(\mathbf{C_{od}})
+    \label{eqn:access-bold}
+\end{equation}
+
+
+In brief, access at the origin ($\mathbf{A_{o}}$) is the product of a function of the Opportunities ($\mathbf{O_{j}}$) available at other destinations ($d$) (e.g., the distribution of activities across the city) and a function of the Costs ($\mathbf{C_{od}}$) to engage those Opportunities, which depends on the network, where the higher the cost, the less valued the opportunity.
+
+The value of the city and the network follow from the overall access they produce. Faster and more direct cities produce more access. More proximate (denser) cities produce more access. People pay a premium to locate in higher access areas, indicating their value \citep{wang2022time}.
+
+The probability $\Pi$ that a new node entering the system will connect with any node $i$  is proportional to the increase of net value (benefit - cost) added by that connection.
+
+\begin{equation}
+\Pi(k_{i}) \propto  \Delta   \mathbf{A_{o}} 
+\end{equation}
+
+
+
+
+The original preferential attachment model (equation \ref{eqn:preferential}) is just a degenerate form of relative topological accessibility, where accessibility of a node is simplified to be its degree ($k$) \citep{wu2020unifying}, and nodes are chosen proportional to the their relative degree. This  measure accounts for neither networks costs (other than each node gets to add one link to the network) nor the value of nodes (other than through the degree of the node).
+
+
+Several studies have extended the preferential attachment model to incorporate saturation effects and maximum degree constraints. 
+ \citet{bianconi2001competition} introduced a variant of the preferential attachment model called the `fitness model,'  which includes a saturation parameter that allows the attractiveness of highly connected nodes to diminish over time. \citet{krapivsky2001organization} proposed a model that incorporates a maximum degree constraint and showed that it can produce power-law degree distributions with an exponential cutoff.
+
+Inspired by the logistic growth model, we extend the preferential attachment model to incorporate a saturation effect, where nodes that have already reached a certain degree of connectivity become less attractive to new nodes.
+
+
+% ==== END original access motivation ====
+
+
+% New, compact accessibility notation for clarity
+For any origin $o$, we also write access to destinations $d\in V_t$ as
+\begin{equation}
+A_o(G_t)=\sum_{d\in V_t} g(O_d)\,f(C_{od}(G_t)).
+\end{equation}
+
+
+\subsection{Access and the PA limit (degeneracy)}
+The access construct in \autoref{eqn:access-bold} nests the Barab\'asi--Albert (BA) rule as a special case.
+Assume (i) identical destination mass, $g(O_d)\equiv 1$; (ii) identical generalized cost on all existing links; and (iii) a step impedance over topological distance such that $f(C_{od})=1$ if there is a path of length $\le 1$, and $0$ otherwise. Then $A_o$ counts the number of immediate neighbors of $o$, i.e., its degree $k_o$.
+When an origin $o$ considers attaching to target $i$, the expected number of \emph{distinct} destinations newly opened through~$i$ is proportional to $k_i$ in sparse, low-clustering regimes (overlap is negligible at early times). Therefore the marginal access gain satisfies $\Delta A_{o\to i}\propto k_i$, and the choice kernel collapses to $\Pi_{o\to i}\propto k_i$ (BA) when $\alpha=1$, $\beta=\lambda=\kappa=0$. Introducing capacity slack $s_i=k_{\max,i}-k_i$ yields a degree-capped PA, while introducing distance or monetary cost through $c_{oi}$ yields spatial attachment; both are accommodated within the more general formulation below.
+
+
+% ==== BEGIN original multiplicative kernel and discussion (retained) ====
+We modify the probability $\Pi$ of a new node connecting to an existing node $i$, based on the degree of node $k_{i}$ relative to some maximum degree $k_{max,i}$. To incorporate a maximum degree or capacity, we can modify equation \ref{eqn:preferential} to include a term that depends on the maximum degree of each node $k_{max,j}$:
+
+\begin{equation}
+\Pi(k_{i}) = \frac{ k_{i}^{\alpha} \cdot (k_{max,i} - k_{i})^{\beta} {C_{i}^{\theta }} }
+{ \sum_{j=1}^{J_{t}} k_{j}^{\alpha} \cdot (k_{max,j} - k_{j})^{\beta} { C_{j}^{\theta}} } 
+\label{eqn:generalattachment}
+\end{equation}
+
+Equation \ref{eqn:generalattachment} provides a framework for extending the preferential attachment model to incorporate saturation effects and maximum degree constraints.
+
+Here $\alpha$ is a parameter that controls the strength of the economies of scale and $\beta$ controls the diseconomies of scale as the node becomes saturated. As $\alpha$ increases, the probability of connecting to highly connected nodes increases more rapidly, where $\beta$  is a parameter that controls the effect of the maximum degree or capacity. As $\beta$ increases, the saturation effect becomes stronger for nodes that are closer to the maximum degree. 
+
+To extend it to capture the tyranny of distance, we account for an impedance function $f(C_{ij})$, where $C_{i}$ is some cost of link $i$, here we use a power term, though many functions can be used, though contra \cite{simini2012universal}, we believe that physical distance or travel time remains relevant, and the system cannot be `parameter-less'. We simplify by assuming that $C_{i}$ = distance  (could be monetary cost, travel time).
+
+The original preferential attachment model (equation \ref{eqn:preferential}) is a special case of this general attachment model (equation \ref{eqn:generalattachment}) with $\alpha=1$, $\beta=0$, $\theta=0$
+
+We conduct tests with the following scenarios to illustrate how capacity, cost, and connectivity affect network structure:
+
+\begin{itemize}
+    \item $\alpha=1$, $\beta=0$, $\theta=0$ - Traditional Preferential Attachment
+    \item $\alpha=1$, $\beta=1$, $\theta=0$ - Capacitated Preferential Attachment
+    \item $\alpha=1$, $\beta=0$, $\theta=-1$ - Spatial Preferential Attachment
+    \item $\alpha=1$, $\beta=1$, $\theta=-1$ - General (Capacitated, Spatial Preferential) Attachment
+\end{itemize}
+
+
+These experiments are conducted for different size networks with different capacities.
+  
+In addition, when testing connectivity, we test different numbers of initial attachments ($\kappa$), rather than only permitting each node one connection. %We test different numbers of initial connections (for different seed values).
+
+For each set of scenarios we explore it's scale-freeness, equity, connectivity, etc. Other performance measures.
+
+
+% ==== END original multiplicative kernel and discussion ====
+
+% =======================
+% Lemma: PA is an access limit
+% Requires in preamble:
+
+% =======================
+
+\begin{lemma}[PA as a special case of access]
+Let accessibility be
+\[
+A_o(G)=\sum_{d} g(O_d)\,f(C_{od}(G)),
+\]
+as in \autoref{eqn:access-bold}. Assume:
+\begin{enumerate}
+\item identical destination mass, $g(O_d)\equiv 1$;
+\item a step impedance on topological distance, $f(C_{od})=\mathbf{1}\{\text{dist}_G(o,d)\le 1\}$;
+\item identical generalized link costs (or costs ignored at link choice), and non‑binding capacity ($\beta=0$);
+\item the network is sparse and locally tree‑like at the time of attachment (vanishing expected neighborhood overlap).
+\end{enumerate}
+If a new node $o$ chooses target $i$ with probability proportional to the marginal access gain
+\(
+\Delta A_{o\to i}=A_o(G\cup (o,i)) - A_o(G),
+\)
+then
+\[
+\Pi_{o\to i} \;\propto\; k_i,
+\]
+so the rule reduces to Barabási–Albert preferential attachment with $\Pi_{o\to i}=k_i/\sum_j k_j$. 
+Moreover, with a softmax choice $\Pi_{o\to i}\propto \exp\!\big\{\lambda\,\Delta A_{o\to i}/\tau\big\}$ and equal costs, one has
+\(
+\Pi_{o\to i}=\Delta A_{o\to i}/\sum_j \Delta A_{o\to j}+o(1)
+\)
+in the small‑$\lambda/\tau$ limit, hence again $\Pi_{o\to i}\propto k_i$.
+\end{lemma}
+
+\begin{proof}[Sketch]
+Under (1)–(2), $A_o$ counts the number of immediate neighbors of $o$. 
+Linking $o$ to $i$ exposes $o$ to $i$ and to $i$’s neighbors; with (4), the expected number of \emph{distinct} new destinations is
+\(
+\Delta A_{o\to i} = 1 + k_i - \text{overlap} \approx 1 + k_i.
+\)
+Dropping the constant, $\Delta A_{o\to i}\propto k_i$, so the linear rule yields $\Pi_{o\to i}\propto k_i$. 
+For the softmax, with equal costs and fixed $\tau$, $e^{\lambda \Delta A/\tau}=1+(\lambda/\tau)\Delta A+o(\lambda/\tau)$; normalizing over $i$ gives $\Pi_{o\to i}=\Delta A_{o\to i}/\sum_j \Delta A_{o\to j}+o(1)\propto k_i$.
+\end{proof}
+
+% Remark. Adding capacity slack $s_i=k_{\max,i}-k_i$ yields capped-PA with truncated tails; 
+% adding distance/monetary cost to the argument of the choice function yields spatial attachment.
+
+
+
+
+
+
+
+
+\begin{comment}
+
+
+
+Let $G_t=(V_t,E_t)$ be the network at step $t$.  A new node $o$ (or an existing node adding links) chooses targets $i\in V_t$.
+
+\paragraph{Accessibility.} For any origin $o$, define access to destinations $d\in V_t$ as
+\begin{equation}
+A_o(G_t)=\sum_{d\in V_t} g(O_d)\,f(C_{od}(G_t)),
+\label{eq:access}
+\end{equation}
+where $O_d$ is a measure of destination ``mass'' (e.g., activity, capacity, or content), $g(\cdot)$ is a nondecreasing transformation, $C_{od}(G_t)$ is a generalized cost (distance, time, delay, or price) along $G_t$, and $f(\cdot)$ is a nonincreasing impedance function (e.g., negative exponential or power law).  
+
+When creating a candidate link $(o,i)$, define the \emph{marginal access gain} 
+\begin{equation}
+\Delta A_{o\to i} \equiv A_o\!\big(G_t\cup (o,i)\big) - A_o(G_t),
+\label{eq:deltaA}
+\end{equation}
+and a link cost $\kappa\, c_{oi}$ with $\kappa>0$ and $c_{oi}\ge 0$ (e.g., Euclidean distance, monetary cost, delay).
+
+\paragraph{Probabilistic choice.}  We convert marginal utility into a choice probability via a softmax with ``temperature'' $\tau>0$:
+\begin{equation}
+\Pi_{o\to i} \propto \Big(k_i+k_0\Big)^{\alpha}\,\Big(s_i\Big)^{\beta}\,
+\exp\left\{\frac{\lambda\,\Delta A_{o\to i}-\kappa\,c_{oi}}{\tau}\right\},
+\label{eq:kernel}
+\end{equation}
+where $k_i$ is degree, $k_0\ge 0$ is an offset, $s_i$ is \emph{capacity slack} (e.g., $s_i=k_{\max,i}-k_i$ or $s_i=\text{cap}_i-\text{load}_i$), and $\alpha,\beta,\lambda\ge 0$ are parameters.  Equation~\eqref{eq:kernel} (i) reduces to pure PA when $\alpha=1$, $\beta=0$, $\lambda=0$ and costs are irrelevant; (ii) implements spatial deterrence through $c_{oi}$; and (iii) enforces saturation through $s_i$.
+
+\paragraph{Access vs. fitness.}  Node heterogeneity can be absorbed as $g(O_d)=\eta_d O_d$ or as a multiplicative factor $\eta_i^{\phi}$ in \eqref{eq:kernel}, recovering classical fitness models under special choices of $g,f$.
+
+\subsection{A general multiplicative kernel}
+%The draft's multiplicative kernel, which we retain as an alternative parameterisation, writes the attachment probability as:
+We modify the probability $\Pi$ of a new node connecting to an existing node $i$, based on the degree of node $k_{i}$ relative to some maximum degree $k_{max,i}$. To incorporate a maximum degree or capacity, we can modify equation \ref{eq:kernel} to include a term that depends on the maximum degree of each node $k_{max,j}$:
+
+\begin{equation}
+\Pi(k_{i}) = \frac{ k_{i}^{\alpha} \cdot (k_{max,i} - k_{i})^{\beta} {C_{i}^{\theta }} }
+{ \sum_{j=1}^{J_{t}} k_{j}^{\alpha} \cdot (k_{max,j} - k_{j})^{\beta} { C_{j}^{\theta}} } 
+\label{eqn:generalattachment}
+\end{equation}
+
+Equation \ref{eqn:generalattachment} provides a framework for extending the preferential attachment model to incorporate saturation effects and maximum degree constraints.
+
+Here $\alpha$ is a parameter that controls the strength of the economies of scale and $\beta$ controls the diseconomies of scale as the node becomes saturated. As $\alpha$ increases, the probability of connecting to highly connected nodes increases more rapidly, where $\beta$  is a parameter that controls the effect of the maximum degree or capacity. As $\beta$ increases, the saturation effect becomes stronger for nodes that are closer to the maximum degree. 
+
+To extend it to capture the tyranny of distance, we account for an impedance function $f(C_{ij})$, where $C_{i}$ is some cost of link $i$, here we use a power term, though many functions can be used, though contra \cite{simini2012universal}, we believe that physical distance or travel time remains relevant, and the system cannot be `parameter-less'. We simplify by assuming that $C_{i}$ = distance  (could be monetary cost, travel time).
+
+The original preferential attachment model (equation \ref{eqn:preferential}) is a special case of this general attachment model (equation \ref{eqn:generalattachment}) with $\alpha=1$, $\beta=0$, $\theta=0$
+
+We conduct tests with the following scenarios to illustrate how capacity, cost, and connectivity affect network structure:
+
+\begin{itemize}
+    \item $\alpha=1$, $\beta=0$, $\theta=0$ - Traditional Preferential Attachment
+    \item $\alpha=1$, $\beta=1$, $\theta=0$ - Capacitated Preferential Attachment
+    \item $\alpha=1$, $\beta=0$, $\theta=-1$ - Spatial Preferential Attachment
+    \item $\alpha=1$, $\beta=1$, $\theta=-1$ - General (Capacitated, Spatial Preferential) Attachment
+\end{itemize}
+
+
+These experiments are conducted for different size networks with different capacities.
+  
+In addition, when testing connectivity, we test different numbers of initial attachments ($\kappa$), rather than only permitting each node one connection. %We test different numbers of initial connections (for different seed values).
+
+For each set of scenarios we explore it's scale-freeness, equity, connectivity, etc. Other performance measures.
+\end{comment}
+
+
+\subsection{Model dictionary (limiting cases)}
+Table~\ref{tab:dictionary} records parameter settings and interpretations that reproduce prominent families.
+
+\begin{table}[H]
+\centering
+\caption{Model dictionary: recovering well-known families from \eqref{eq:kernel}.}
+\label{tab:dictionary}
+\begin{tabular}{@{}llp{6.2cm}@{}}
+\toprule
+Family & Parameters & Interpretation \\
+\midrule
+Barab\'asi--Albert (PA) & $\alpha=1,\ \beta=0,\ \lambda=0$ & Choice proportional to degree only. \\
+Spatial PA (SPA) & $\alpha\approx1,\ \beta=0,\ \lambda\approx 0$, softmax on $-\kappa c_{oi}$ & Distance (or time) deters long links, raising clustering and shortening tails. \\
+Capacity-limited PA & $\alpha\ge 0,\ \beta>0,\ \lambda\approx 0$ & Slack $s_i=k_{\max,i}-k_i$ truncates tails when hubs saturate. \\
+Fitness/hidden-metric & $\alpha\ge0,\ \beta\ge0,\ \lambda\approx 0$, $\eta_i^{\phi}$ & Degree is modulated by fixed heterogeneity or latent distance. \\
+Access-based (this paper) & $\alpha\ge0,\ \beta\ge0,\ \lambda>0$ & Targets chosen by marginal access gain minus cost; $g,f$ make access auditable. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Asymptotic regimes (qualitative)}
+We highlight three robust, testable patterns produced by \eqref{eq:kernel}.
+\begin{enumerate}
+\item With $\beta=0$ and weak spatial friction ($\kappa/\tau$ small), $\alpha\approx 1$ recovers heavy tails similar to PA.
+\item Positive $\beta$ (binding slack) produces truncated or stretched-exponential tails and reduces degree inequality.
+\item Strong spatial friction (large $\kappa/\tau$) steepens tails, raises clustering, and lengthens typical path length.
+\end{enumerate}
+These regimes align with the empirical observation that universal scale-freeness is rare; capacity and space often matter.
+
+\section{Simulation evidence}
+% ==== BEGIN original simulations narrative (retained) ====
+ % Nazanin
+Figure? shows the ability of Capacitated Preferential Attachment, General Capacitated Attachment models to incorporate saturation effect and maximum degree constraints in network growth patterns. 
+
+
+% ==== END original simulations narrative ====
+
+We simulate growth under \eqref{eq:kernel} and compare against PA baselines.  Figures~\ref{fig:scab10}--\ref{fig:scab50} show representative results as we vary the number of initial nodes and a maximum-degree proxy $K_{\max}$.
+\begin{figure}[H]\centering
+\includegraphics[width=0.82\textwidth]{Figures/SCAB_10.PNG}
+\caption{Ten initial nodes: traditional PA vs.\ capacitated PA across $K_{\max}$.}
+\label{fig:scab10}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.82\textwidth]{Figures/SCAB_20.PNG}
+\caption{Twenty initial nodes: traditional PA vs.\ capacitated PA across $K_{\max}$.}
+\label{fig:scab20}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.82\textwidth]{Figures/SCAB_30.PNG}
+\caption{Thirty initial nodes: traditional PA vs.\ capacitated PA across $K_{\max}$.}
+\label{fig:scab30}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.82\textwidth]{Figures/SCAB_40.PNG}
+\caption{Forty initial nodes: traditional PA vs.\ capacitated PA across $K_{\max}$.}
+\label{fig:scab40}
+\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=0.82\textwidth]{Figures/SCAB_50.PNG}
+\caption{One hundred initial nodes: traditional PA vs.\ capacitated PA across $K_{\max}$.}
+\label{fig:scab50}
+\end{figure}
+
+%\paragraph{Metrics.}  Report, at a minimum: degree and link-length distributions; clustering; assortativity; path lengths; hub load or betweenness; Gini of degree; and goodness-of-fit (likelihood, AIC/BIC) against PA, SPA, fitness, and cost--performance baselines.
+
+%\section{Calibration and empirical comparisons}
+%To demonstrate measurement and falsifiability, we will estimate $\alpha,\beta,\lambda,\kappa,\tau$ (and any access parameters inside $g,f$) on at least two spatially embedded, capacitated systems (e.g., airline or road interchanges) and one communication/social network.  Identification comes from joint variation in degree, slack, and distance; predictive checks compare held-out edge formation and the full suite of topological and spatial metrics. 
+
+%\subsection{Empirical illustrations (notes from draft)}
+% ==== BEGIN original empirical notes (retained) ====
+ % Somwrita
+
+% The format can be estimated statistically (ECONOMETRICALLY) as a choice model panel. E.g. If we have the links (station-to-station connnections) by year, and all potential links, they are all [0,1] variables. Most are 0 every year (most possible links are never constructed), but in the year they are built they are 1. 
+
+%We have this data for Sydney Trains and Trams and for London Trains e.g., though not in this format. Also for Minnesota State Roads and a few other cases (Indiana Interurbans etc.)
+
+%We can demonstrate that General model better explains actual choices than Traditional (though if we are trying to match exact year, all the models will be poor).
+
+% Social network?
+
+
+% ==== END original empirical notes ====
+
+\section{Discussion}
+The access-based rule organizes a large literature into a single, auditable mechanism.  It explains when PA-like heavy tails appear, when capacity and distance truncate them, and how node heterogeneity can be absorbed into measured access rather than unobserved fitness.  Because access and cost are observed, the model lends itself to policy analysis (e.g., which links would most increase access at least cost).
+
+\clearpage
+\bibliographystyle{agsm}
+\bibliography{saturation}
+
+\end{document}

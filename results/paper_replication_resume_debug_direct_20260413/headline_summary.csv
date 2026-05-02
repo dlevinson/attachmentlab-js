@@ -1,0 +1,5 @@
+scenarioId,scenarioLabel,maxDegree,degreeGini,averageClustering,meanEdgeLength,preferredTail,earlyStopRate
+ba_benchmark,BA benchmark,26,0.37878472222222226,0.09485434554552201,0.5141649092080025,exponential,0
+capacity_only,Capacity only,14,0.339375,0.07265614015614015,0.5269675103162856,exponential,0
+spatial_only,Spatial only,34,0.38861111111111124,0.15059337443129003,0.3674683926054068,exponential,0
+general_model,General model,14,0.3299305555555556,0.07959452584452584,0.36998044907297056,exponential,0

@@ -1,0 +1,2 @@
+scenarioId,scenarioLabel,maxDegree,degreeGini,averageClustering,meanEdgeLength,preferredTail,earlyStopRate
+ba_benchmark,BA benchmark,83,0.39033731250000014,0.02714314008557498,0.524870864689888,power_law,0

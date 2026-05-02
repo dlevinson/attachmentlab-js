@@ -1,0 +1,105 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Barab{\'a}si and Albert(1999)]{barabasi1999emergence}
+Albert-L{\'a}szl{\'o} Barab{\'a}si and R{\'e}ka Albert.
+\newblock Emergence of scaling in random networks.
+\newblock \emph{Science}, 286\penalty0 (5439):\penalty0 509--512, 1999.
+
+\bibitem[Barth{\'e}lemy(2011)]{barthelemy2011spatial}
+Marc Barth{\'e}lemy.
+\newblock Spatial networks.
+\newblock \emph{Physics Reports}, 499\penalty0 (1-3):\penalty0 1--101, 2011.
+
+\bibitem[Bianconi and Barab{\'a}si(2001)]{bianconi2001competition}
+Ginestra Bianconi and A-L Barab{\'a}si.
+\newblock Competition and multiscaling in evolving networks.
+\newblock \emph{Europhysics Letters}, 54\penalty0 (4):\penalty0 436, 2001.
+
+\bibitem[Broido and Clauset(2019)]{broido2019scale}
+Anna~D Broido and Aaron Clauset.
+\newblock Scale-free networks are rare.
+\newblock \emph{Nature Communications}, 10\penalty0 (1):\penalty0 1017, 2019.
+
+\bibitem[Clauset et~al.(2009)Clauset, Shalizi, and Newman]{clauset2009power}
+Aaron Clauset, Cosma~Rohilla Shalizi, and Mark~EJ Newman.
+\newblock Power-law distributions in empirical data.
+\newblock \emph{SIAM Review}, 51\penalty0 (4):\penalty0 661--703, 2009.
+
+\bibitem[Dorogovtsev et~al.(2000)Dorogovtsev, Mendes, and
+  Samukhin]{dorogovtsev2000generic}
+SN~Dorogovtsev, JFF Mendes, and AN~Samukhin.
+\newblock Generic scale of the `scale-free' growing networks.
+\newblock \emph{arXiv preprint cond-mat/0011115}, 2000.
+
+\bibitem[Golosovsky(2017)]{golosovsky2017power}
+Michael Golosovsky.
+\newblock Power-law citation distributions are not scale-free.
+\newblock \emph{Physical Review E}, 96\penalty0 (3):\penalty0 032306, 2017.
+
+\bibitem[Holme(2019)]{holme2019rare}
+Petter Holme.
+\newblock Rare and everywhere: Perspectives on scale-free networks.
+\newblock \emph{Nature Communications}, 10\penalty0 (1):\penalty0 1016, 2019.
+
+\bibitem[Krapivsky and Redner(2001)]{krapivsky2001organization}
+Paul~L Krapivsky and Sidney Redner.
+\newblock Organization of growing random networks.
+\newblock \emph{Physical Review E}, 63\penalty0 (6):\penalty0 066123, 2001.
+
+\bibitem[Levinson and Wu(2020)]{levinson2020towards}
+David Levinson and Hao Wu.
+\newblock Towards a general theory of access.
+\newblock \emph{Journal of Transport and Land Use}, 13\penalty0 (1):\penalty0
+  129--158, 2020.
+
+\bibitem[Li et~al.(2005)Li, Alderson, Doyle, and Willinger]{li2005towards}
+Lun Li, David Alderson, John~C Doyle, and Walter Willinger.
+\newblock Towards a theory of scale-free graphs: Definition, properties, and
+  implications.
+\newblock \emph{Internet Mathematics}, 2\penalty0 (4):\penalty0 431--523, 2005.
+
+\bibitem[Newman(2003)]{newman2003structure}
+Mark~EJ Newman.
+\newblock The structure and function of complex networks.
+\newblock \emph{SIAM Review}, 45\penalty0 (2):\penalty0 167--256, 2003.
+
+\bibitem[Smith et~al.(2021)Smith, Kim, and Walker]{smith2021scarcity}
+Harrison~B Smith, Hyunju Kim, and Sara~I Walker.
+\newblock Scarcity of scale-free topology is universal across biochemical
+  networks.
+\newblock \emph{Scientific Reports}, 11\penalty0 (1):\penalty0 6542, 2021.
+
+\bibitem[Voitalov et~al.(2019)Voitalov, van~der Hoorn, van~der Hofstad, and
+  Krioukov]{voitalov2019scale}
+Ivan Voitalov, Pim van~der Hoorn, Remco van~der Hofstad, and Dmitri Krioukov.
+\newblock Scale-free networks well done.
+\newblock \emph{Physical Review Research}, 1\penalty0 (3):\penalty0 033034,
+  2019.
+
+\bibitem[Wang and Levinson(2022)]{wang2022time}
+Yadi Wang and David Levinson.
+\newblock Time savings vs. access-based benefit assessment of new york’s
+  second avenue subway.
+\newblock \emph{Journal of Benefit-Cost Analysis}, 13\penalty0 (1):\penalty0
+  120--147, 2022.
+
+\bibitem[Willinger et~al.(2009)Willinger, Alderson, and
+  Doyle]{willinger2009mathematics}
+Walter Willinger, David Alderson, and John~C Doyle.
+\newblock Mathematics and the internet: A source of enormous confusion and
+  great potential.
+\newblock \emph{Notices of the American Mathematical Society}, 56\penalty0
+  (5):\penalty0 586--599, 2009.
+
+\bibitem[Wu and Levinson(2020)]{wu2020unifying}
+Hao Wu and David Levinson.
+\newblock Unifying access.
+\newblock \emph{Transportation Research Part D: Transport and Environment},
+  83:\penalty0 102355, 2020.
+
+\end{thebibliography}

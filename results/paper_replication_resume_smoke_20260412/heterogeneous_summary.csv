@@ -1,0 +1,4 @@
+scenarioId,scenarioLabel,maxDegree,degreeGini,shareAtCapacity,averageClustering,earlyStopRate
+constant_capacity,Constant K = 16,16,0.34486111111111106,0.008333333333333333,0.08979885854885854,0
+uniform_capacity,"Uniform U[8,24]",18,0.34496527777777786,0,0.0907098946804829,0
+lognormal_capacity,Lognormal mean ≈ 16,29,0.3619097222222223,0,0.1255008405312665,0

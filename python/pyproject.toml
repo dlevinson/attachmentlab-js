@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "general-attachment"
+version = "0.1.0"
+description = "Reproducible simulation study for generalized preferential attachment with capacity, cost, and connectivity."
+requires-python = ">=3.10"
+dependencies = [
+  "matplotlib>=3.7",
+  "networkx>=3.2",
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "PyYAML>=6.0",
+  "scipy>=1.11",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

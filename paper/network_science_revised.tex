@@ -1,0 +1,258 @@
+% Revised manuscript drafted from the simulation outputs in results/benchmark_fast.
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[sort,comma]{natbib}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\graphicspath{{../results/benchmark_fast/figures/}}
+
+\title{Network Growth with Capacity, Cost, and Multi-link Entry: A Generalized Preferential Attachment Model}
+\author{Nazanin Tajik \and Somwrita Sarkar \and Alireza Ermagun \and David Levinson}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Barab\'asi--Albert model explains the emergence of hub-dominated degree distributions through growth and preferential attachment, but it suppresses three features that are central to many intentionally built networks: finite capacity, dyadic connection cost, and the possibility that entering nodes form multiple links. We propose a generalized preferential attachment model that adds these mechanisms in a single attachment kernel and nests the Barab\'asi--Albert benchmark as a limiting case. The contribution is not the introduction of each ingredient in isolation, but their unification in one dyadic framework and the systematic mapping of the regimes they generate. We evaluate the model with a reproducible simulation study on undirected simple graphs embedded in a unit square. In the headline scenarios, finite capacity truncates hub growth: at $N=1000$, imposing $K=16$ reduces the mean maximum degree from $77.75$ in the Barab\'asi--Albert benchmark to $16.00$ and shifts the preferred tail model from power law to exponential. Increasing spatial deterrence from $\phi=0$ to $\phi=2$ reduces mean edge length by about $70\%$ and raises clustering by nearly an order of magnitude. Increasing multi-link entry from $\kappa=1$ to $\kappa=4$ transforms the network from nearly tree-like to substantially meshed, cutting average shortest-path length by more than half. The model therefore identifies conditions under which hub-dominated, localized, saturated, and meshed regimes emerge, and it generates falsifiable hypotheses for future empirical work on transport and infrastructure network growth.
+\end{abstract}
+
+\section{Introduction}
+
+Preferential attachment remains one of the canonical explanations for the emergence of heavy-tailed degree distributions in growing networks \citep{barabasi1999emergence}. In the Barab\'asi--Albert (BA) model, new nodes are more likely to connect to already well-connected nodes, and repeated application of that rule generates hub-dominated networks with approximate power-law tails. That logic has been influential across network science, because it offers a parsimonious account of cumulative advantage in systems as varied as the World Wide Web, citation networks, and biological interaction networks.
+
+Yet the same parsimony limits the model's usefulness for many real networks, especially physical and social systems in which space, congestion, and link multiplicity matter. Roads, rail systems, airline networks, pipelines, and social relations are not only topological objects. They are embedded in space, they face finite capacity, and they often involve nodes entering with more than one connection. In such settings, the attractiveness of an already connected node depends not only on its degree but also on residual capacity and dyadic cost. A theory of network growth that ignores those mechanisms can reproduce a stylized hub logic while missing the circumstances under which hub formation is attenuated, localized, or replaced by more meshed structures.
+
+Individual ingredients of this extension are not wholly new. Spatial preferential attachment and capacity-related cutoff mechanisms have already been studied in several forms \citep{barthelemy2011spatial,bianconi2001competition,krapivsky2001organization}. The contribution of this paper is instead threefold. First, we combine preferential attachment, finite capacity, dyadic cost, and multi-link entry in one attachment kernel that nests BA as a transparent special case. Second, we interpret the kernel as a reduced-form access mechanism: new links are valuable because they expand access, but that value depends on existing connectivity, residual capacity, and connection cost. Third, we use simulation to map the regime structure of the model rather than merely showing that it can draw alternative network pictures. In other words, the paper is about when, how, and how much capacity, cost, and multi-link entry bend network growth away from the BA benchmark.
+
+That framing matters for two reasons. Substantively, infrastructure and transport networks rarely continue toward ever-larger hubs without bound. Cost and capacity constraints often induce saturation, localization, or the formation of regional sub-centers. Methodologically, claims about heavy tails require more than straight lines on log-log plots \citep{clauset2009power}. A convincing simulation study should therefore do more than report one illustrative graph: it should identify comparative statics, interactions, and boundary conditions, and it should show whether the generalized model recovers BA-like behavior when constraints are relaxed.
+
+The paper is organized as follows. Section~\ref{sec:model} defines the generalized attachment model and shows how it nests the BA benchmark. Section~\ref{sec:design} describes the simulation design and reported metrics. Section~\ref{sec:results} presents the headline scenarios, one-factor comparative statics, and tail-fit results. Section~\ref{sec:discussion} discusses what the simulations imply for theory and for future empirical work. We deliberately omit an empirical application here and frame the paper as a theory-plus-simulation contribution targeted at \emph{Network Science}; empirical estimation is the next step rather than a half-developed placeholder.
+
+\section{A Unified Growth Model}
+\label{sec:model}
+
+\subsection{Attachment kernel}
+
+Consider a growing undirected simple graph with no self-loops and no duplicate edges. The seed network contains $m_0$ nodes. At each time step a new node $n$ arrives, is assigned a location in the unit square, and attempts to form $\kappa$ links to existing feasible nodes.
+
+Let $k_i$ denote the current degree of existing node $i$, let $K_i$ denote its capacity, and let $c_{ni}$ denote the dyadic connection cost between the arriving node $n$ and candidate node $i$. In the simulations below, $c_{ni}$ is Euclidean distance, but the formulation permits alternative cost measures such as travel time or generalized impedance. We define the attachment weight for candidate $i$ as
+\begin{equation}
+w_{ni} = (k_i + \varepsilon)^{\alpha} \, \max(K_i - k_i,0)^{\beta} \, (c_{ni} + \varepsilon)^{-\phi},
+\label{eq:weight}
+\end{equation}
+where $\alpha \ge 0$ controls preferential attachment or economies of scale, $\beta \ge 0$ controls saturation pressure or diseconomies of scale, $\phi \ge 0$ controls distance deterrence, and $\varepsilon > 0$ is a small numerical constant.
+
+The choice probability is the normalized weight over the feasible set:
+\begin{equation}
+\Pi_{ni} = \frac{w_{ni}}{\sum_{j \in \mathcal{F}_n} w_{nj}},
+\qquad
+\mathcal{F}_n = \{j: K_j > k_j \},
+\label{eq:probability}
+\end{equation}
+with one additional operational rule: neighbors are selected sequentially without replacement within the same arrival step, and degrees are updated after each realized edge. Thus, the effective feasible set and attachment probabilities can change after every link created by the arriving node.
+
+This sequential rule matters. If fewer than $\kappa$ feasible nodes exist at the start of the step, the new node attaches to all feasible nodes and the run records a truncation event. If no feasible nodes remain, growth stops and the termination reason is recorded. The simulation framework therefore permits both soft saturation, through the weight term in Equation~\ref{eq:weight}, and hard termination when the feasible set is empty.
+
+\subsection{Interpretation}
+
+The model can be read as a reduced-form access process. Links are valuable because they improve access to people, places, or activities of interest. High-degree nodes are attractive because they proxy accumulated access advantages. Residual capacity matters because a node that is nearly full offers less marginal value than a node with spare room. Dyadic cost matters because a distant or otherwise expensive connection delivers less net benefit than a nearby one. This is not yet a structural access model, but it is a coherent micro-foundation for why the attachment kernel should depend jointly on connectivity, capacity, and cost rather than on degree alone.
+
+\subsection{How the model nests BA}
+
+The BA benchmark is recovered exactly when
+\[
+\alpha = 1, \qquad \beta = 0, \qquad \phi = 0, \qquad K_i = \text{very large}, \qquad \kappa = m.
+\]
+Under those restrictions, the saturation term is constant, the cost term is constant, and attachment is proportional to current degree. The generalized model is therefore not a separate story from BA, but a strict extension of it.
+
+\section{Simulation Design}
+\label{sec:design}
+
+All simulations use nodes placed in a two-dimensional unit square. Seed nodes and arriving nodes are drawn independently from the uniform distribution on $[0,1]^2$. The default seed network is a complete graph on $m_0=5$ nodes, and we require $m_0 \ge \kappa + 1$. Unless otherwise noted, the reported results use homogeneous capacities.
+
+The simulation study has three components.
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Headline scenarios}: four benchmark cases comparing BA, capacity-only, spatial-only, and the full generalized model.
+    \item \textbf{One-factor comparative statics}: a sensitivity design varying $\alpha$, $\beta$, $\phi$, $\kappa$, and $K$ around a baseline configuration.
+    \item \textbf{A $\beta$--$K$ interaction grid}: a compact heatmap design for saturation strength and capacity.
+\end{enumerate}
+
+Table~\ref{tab:headline-scenarios} lists the four headline scenarios. The executed benchmark reported here uses $8$ replications per scenario and network sizes up to $N=1000$. The codebase also supports larger grids, higher replication counts, $N=5000$, and heterogeneous capacities, but those outputs are not yet integrated into this manuscript.
+
+\begin{table}[htbp]
+\centering
+\caption{Headline scenarios used throughout the paper.}
+\label{tab:headline-scenarios}
+\begin{tabular}{lccccc}
+\toprule
+Scenario & $\alpha$ & $\beta$ & $\phi$ & $\kappa$ & $K$ \\
+\midrule
+BA benchmark & 1.0 & 0.0 & 0.0 & 2 & very large \\
+Capacity only & 1.0 & 1.0 & 0.0 & 2 & 16 \\
+Spatial only & 1.0 & 0.0 & 1.0 & 2 & very large \\
+General model & 1.0 & 1.0 & 1.0 & 2 & 16 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For each run we store final node and edge counts, early-stop status, mean and maximum degree, degree Gini, share of nodes at capacity, connected components, size of the largest connected component, average clustering, average shortest-path length on the largest component, diameter where feasible, degree assortativity, mean and median edge length, total network length, degree centralization, fraction of degree-one nodes, fraction above a degree threshold, and tree-likeness indicators. We also save the full degree sequence for each replication.
+
+Degree-tail analysis goes beyond visual inspection. For each scenario we compute the empirical complementary cumulative degree distribution (CCDF), choose $k_{\min}$ by minimizing the Kolmogorov--Smirnov distance for a discrete power-law tail, estimate the power-law exponent by maximum likelihood, and compare power-law, exponential, and lognormal fits using log-likelihood-based criteria. This follows the spirit of the Clauset-style workflow emphasized in the power-law literature \citep{clauset2009power}.
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Headline scenarios}
+
+Figure~\ref{fig:headline-networks} shows one realization from each headline scenario. The BA benchmark produces the familiar hub-dominated structure. Adding capacity alone truncates the visible dominance of the largest hubs. Adding spatial deterrence alone localizes connections while retaining pronounced hubs. The full generalized model combines both effects: hubs are capped and realized links remain geographically short.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{figure_01_example_networks.pdf}
+\caption{Final spatial network realizations for the four headline scenarios, showing how capacity and distance deterrence alter hub formation and local structure.}
+\label{fig:headline-networks}
+\end{figure}
+
+The summary statistics in Table~\ref{tab:headline-results} quantify these visual differences. At $N=1000$, the BA benchmark yields a mean maximum degree of $77.75$ and degree Gini of $0.387$. Imposing $K=16$ collapses the mean maximum degree to $16.00$ and lowers degree inequality to roughly $0.334$, even when spatial deterrence is absent. Spatial deterrence, by contrast, has little effect on hub size when capacity is unbounded, but it sharply shortens realized edge lengths: mean edge length falls from $0.523$ in BA to $0.350$ in the spatial-only case. The full generalized model combines the low hub concentration of the capacitated case with the short edge lengths of the spatial case.
+
+\begin{table}[htbp]
+\centering
+\caption{Headline outcomes at $N=1000$ (means across eight replications).}
+\label{tab:headline-results}
+\begin{tabular}{lccccc}
+\toprule
+Scenario & Max degree & Degree Gini & Clustering & Mean edge length & Preferred tail \\
+\midrule
+BA benchmark & 77.75 & 0.387 & 0.028 & 0.523 & Power law \\
+Capacity only & 16.00 & 0.334 & 0.006 & 0.523 & Exponential \\
+Spatial only & 85.25 & 0.391 & 0.035 & 0.350 & Power law \\
+General model & 16.00 & 0.337 & 0.009 & 0.351 & Exponential \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The most important result is that the mechanisms do different things. Capacity primarily suppresses the upper tail and reduces degree inequality. Space primarily shortens edges and increases local closure. Their combination yields a localized truncated-tail regime rather than merely a more complicated BA benchmark. This is the regime-level contribution of the model.
+
+\subsection{Comparative statics}
+
+Figure~\ref{fig:phi-edge} and Figure~\ref{fig:phi-connectedness} show how the distance-deterrence parameter $\phi$ reshapes the network. As $\phi$ rises from $0$ to $2$, mean edge length falls from $0.527$ to $0.156$, a reduction of roughly $70\%$. Over the same range, average clustering rises from $0.0075$ to $0.0713$, nearly a tenfold increase. All runs in this benchmark remain connected, so stronger space does not fragment the network over the explored parameter range; instead it primarily localizes links and increases local triangle formation.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{figure_03_mean_edge_length_vs_phi.pdf}
+\caption{Mean edge length as a function of the distance-deterrence parameter $\phi$, holding the other parameters at the baseline sensitivity setting.}
+\label{fig:phi-edge}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{figure_07_connectedness_vs_phi.pdf}
+\caption{Largest-component share and average path length on the largest connected component as $\phi$ varies. In the executed benchmark, the largest component always contains the full network.}
+\label{fig:phi-connectedness}
+\end{figure}
+
+Multi-link entry has a different effect. Figure~\ref{fig:kappa-clustering} shows that increasing $\kappa$ raises clustering, and the tree-likeness statistics reveal a more dramatic structural shift. Moving from $\kappa=1$ to $\kappa=4$ raises the cyclomatic number from $6$ to $2991$, increases average clustering from $0.0004$ to $0.0154$, and reduces average shortest-path length from $8.33$ to $3.58$. In other words, larger $\kappa$ pushes the network away from a near-tree and toward a meshed, redundant regime.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{figure_05_clustering_vs_kappa.pdf}
+\caption{Average clustering coefficient as a function of the number of initial attachments $\kappa$.}
+\label{fig:kappa-clustering}
+\end{figure}
+
+Capacity and saturation interact in a more nuanced way than a simple ``more $\beta$ means more saturation'' story. Figure~\ref{fig:capacity-heatmaps} shows that lowering $K$ strongly reduces hub size and degree inequality, but stronger $\beta$ often \emph{reduces} the observed share of nodes exactly at capacity at fixed $K$. For example, when $K=8$, increasing $\beta$ from $0$ to $2$ lowers the degree Gini from $0.300$ to $0.246$ and lowers the share at capacity from $0.173$ to $0.023$. The interpretation is that a high $\beta$ term discourages attachments to nearly full nodes before they become saturated, so the constraint works partly by diverting growth rather than by pushing many nodes all the way to the ceiling.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{figure_04_share_at_capacity_heatmap.pdf}
+\caption{Share of nodes at capacity across the $\beta$--$K$ design, illustrating how stronger saturation and lower capacity change the incidence of binding constraints.}
+\label{fig:capacity-saturation}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figure_06a_max_degree_heatmap.pdf}
+    \caption{Maximum degree.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figure_06b_degree_gini_heatmap.pdf}
+    \caption{Degree Gini.}
+\end{subfigure}
+\caption{Heatmaps of maximum degree and degree inequality over the $\beta$--$K$ design. The strongest truncation occurs when low capacity and high saturation pressure operate jointly.}
+\label{fig:capacity-heatmaps}
+\end{figure}
+
+The remaining one-factor results support a regime interpretation rather than a collection of disconnected parameter effects. Increasing $\alpha$ in the presence of a binding capacity ceiling raises degree inequality more than it raises maximum degree, because the ceiling already binds. Increasing $K$ from $8$ to effectively unbounded values restores BA-like hub growth: the mean maximum degree rises from $8.00$ to $78.88$, degree Gini rises from $0.277$ to $0.390$, and the share of saturated nodes falls from $0.089$ to zero. Figure~\ref{fig:sensitivity-panels} summarizes these one-factor shifts.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figure_08_sensitivity_panels.pdf}
+\caption{One-factor sensitivity panels for $\alpha$, $\beta$, $\phi$, $\kappa$, and $K$ around the baseline specification.}
+\label{fig:sensitivity-panels}
+\end{figure}
+
+\subsection{Tail behavior and regime structure}
+
+Figure~\ref{fig:ccdf} compares the empirical CCDFs for the headline scenarios. The figure alone suggests a truncated upper tail under capacity constraints, but the formal tail fits matter. The BA benchmark prefers a power-law tail at both $N=200$ and $N=1000$, with $\hat{\alpha}_{\mathrm{MLE}} = 2.59$ and $2.78$, respectively. The capacity-only and full generalized models prefer exponential tails at both sizes. The spatial-only model is mixed: exponential at $N=200$, but power-law at $N=1000$. Thus, finite capacity is the main mechanism driving the move away from BA-like heavy tails in the reported benchmark.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{figure_02_degree_ccdf.pdf}
+\caption{Empirical complementary cumulative degree distributions for the headline scenarios on log--log axes, using pooled degree sequences from the largest executed network size.}
+\label{fig:ccdf}
+\end{figure}
+
+Taken together, the simulations identify four broad behavioral domains.
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Hub-dominated BA-like regime}: high $K$, low $\phi$, and moderate $\kappa$ reproduce familiar heavy-tailed outcomes.
+    \item \textbf{Localized hub regime}: high $K$ with positive $\phi$ preserves hubs but shortens realized edges and raises clustering.
+    \item \textbf{Saturated truncated-tail regime}: finite $K$ suppresses the upper tail and degree inequality, with exponential tails replacing power laws.
+    \item \textbf{Meshed regime}: larger $\kappa$ yields more cycles, more redundancy, and shorter path lengths.
+\end{enumerate}
+
+This regime map is what the equation alone cannot supply. The attachment kernel tells us the direction of forces; the simulations show their relative magnitudes, interactions, and boundary conditions.
+
+\section{Discussion}
+\label{sec:discussion}
+
+The simulations clarify why a unified model is worth studying even though its ingredients have antecedents. The main scientific value is not that the model can reproduce several known effects one by one. It is that the same kernel can recover the BA intuition when constraints are weak, but move smoothly into localized, saturated, or meshed regimes when those constraints bind. That is the sense in which the model is a genuine generalization rather than a separate variant with a separate story.
+
+Several substantive implications follow. First, capacity is not only a hard ceiling; in the present model it also changes the allocation of new links before the ceiling binds. Second, distance deterrence changes network form primarily by localizing attachment opportunities, not by disconnecting the network over the benchmark envelope studied here. Third, multi-link entry is structurally important: it changes not just mean degree but the cycle structure and redundancy of the network. Those distinctions generate falsifiable empirical hypotheses. For example, stronger spatial deterrence should shorten realized link lengths and raise clustering; stronger capacity limits should reduce degree inequality and favor exponential cutoffs; larger $\kappa$ should increase redundancy and reduce tree-likeness.
+
+The results also indicate what the current benchmark does \emph{not} show. Within the executed parameter range, all runs remain connected and no replication terminates early due to an empty feasible set. This is itself informative: in the studied region, constraints bend growth without breaking the giant component. But it also means that fragmentation thresholds remain to be mapped with stronger spatial penalties, smaller capacities, or different seed structures.
+
+More broadly, the paper should be read as a theory-plus-simulation contribution, not yet as a calibrated empirical explanation of observed network growth. The codebase now supports the empirical next step, but the present manuscript stops at regime mapping. For a transport or infrastructure application, the natural continuation is to estimate whether observed link additions are better explained by the generalized kernel than by BA or purely spatial preferential attachment.
+
+\section{Conclusion}
+
+This paper has proposed a generalized preferential attachment model that incorporates three mechanisms suppressed in the BA benchmark: finite capacity, dyadic cost, and multi-link entry. The model nests BA as a transparent special case, but it also produces distinct structural regimes that BA alone cannot represent. In the benchmark simulations, capacity truncates the upper tail and reduces degree inequality, space shortens links and raises local clustering, and multi-link entry turns tree-like growth into meshed growth. The full generalized model produces a localized truncated-tail regime that is especially plausible for intentionally built infrastructure systems.
+
+The broader contribution is therefore conceptual as well as computational. The paper shows how to move from a degree-only theory of cumulative advantage to a more general account in which access, congestion, and distance jointly shape network growth. That does not make the ingredients individually new. It does, however, yield a clearer unifying framework, explicit limiting cases, and a set of falsifiable hypotheses for future empirical work. For a theory paper aimed at \emph{Network Science}, that combination is sufficient to motivate publication; for a later transport-focused paper, it also sets up an empirical research program.
+
+\bibliographystyle{plainnat}
+\bibliography{saturation}
+
+\end{document}

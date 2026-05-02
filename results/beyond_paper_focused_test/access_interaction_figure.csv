@@ -1,0 +1,25 @@
+family,scenarioId,scenarioLabel,metric,value
+access_interaction,interaction_reject_none,Reject / no access,meanGravityAccess,29.25369994274356
+access_interaction,interaction_reject_none,Reject / no access,meanCumulativeAccess,88.04
+access_interaction,interaction_reject_none,Reject / no access,crossingCandidatesAdmitted,0
+access_interaction,interaction_reject_none,Reject / no access,splitEvents,0
+access_interaction,interaction_reject_none,Reject / no access,averageClustering,0.46749999999999964
+access_interaction,interaction_reject_none,Reject / no access,meanEdgeLength,0.09695906678667539
+access_interaction,interaction_split_target,Split / target access,meanGravityAccess,52.369749959927674
+access_interaction,interaction_split_target,Split / target access,meanCumulativeAccess,153.62130177514794
+access_interaction,interaction_split_target,Split / target access,crossingCandidatesAdmitted,69
+access_interaction,interaction_split_target,Split / target access,splitEvents,65
+access_interaction,interaction_split_target,Split / target access,averageClustering,0.4684277261200337
+access_interaction,interaction_split_target,Split / target access,meanEdgeLength,0.0718759726011683
+access_interaction,interaction_split_both_seed,Split / both with seed access,meanGravityAccess,3.4627597073791696
+access_interaction,interaction_split_both_seed,Split / both with seed access,meanCumulativeAccess,8.946107784431138
+access_interaction,interaction_split_both_seed,Split / both with seed access,crossingCandidatesAdmitted,67
+access_interaction,interaction_split_both_seed,Split / both with seed access,splitEvents,62
+access_interaction,interaction_split_both_seed,Split / both with seed access,averageClustering,0.4710863986313089
+access_interaction,interaction_split_both_seed,Split / both with seed access,meanEdgeLength,0.07221314031034623
+access_interaction,interaction_split_both_opportunity,Split / both with opportunity access,meanGravityAccess,25.901812295526042
+access_interaction,interaction_split_both_opportunity,Split / both with opportunity access,meanCumulativeAccess,76.13173652694611
+access_interaction,interaction_split_both_opportunity,Split / both with opportunity access,crossingCandidatesAdmitted,67
+access_interaction,interaction_split_both_opportunity,Split / both with opportunity access,splitEvents,62
+access_interaction,interaction_split_both_opportunity,Split / both with opportunity access,averageClustering,0.4710863986313089
+access_interaction,interaction_split_both_opportunity,Split / both with opportunity access,meanEdgeLength,0.07221314031034623

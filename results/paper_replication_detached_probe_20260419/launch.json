@@ -1,0 +1,18 @@
+{
+  "launchedAt": "2026-04-19T07:55:30.323Z",
+  "pid": 24405,
+  "cwd": "/Users/dlev2617/Documents/Code/GTNG General Theory of Network Growth",
+  "outputRoot": "results/paper_replication_detached_probe_20260419",
+  "logPath": "results/paper_replication_detached_probe_20260419/paper_replication.log",
+  "profile": "test",
+  "resume": false,
+  "command": [
+    "npm",
+    "run",
+    "analyze:paper",
+    "--",
+    "--output-root",
+    "results/paper_replication_detached_probe_20260419",
+    "--test"
+  ]
+}

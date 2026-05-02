@@ -1,0 +1,86 @@
+default_suites:
+  - headline
+  - sensitivity
+  - beta_k_heatmap
+
+defaults:
+  output_dir: results/benchmark
+  seed_base: 1729
+  m0: 5
+  eps: 1.0e-9
+  impedance: power
+  impedance_lambda: 1.0
+  capacity_mode: constant
+  degree_threshold: 10
+  diameter_max_nodes: 2000
+  example_network_final_nodes: 1000
+
+suites:
+  headline:
+    type: explicit
+    replications: 30
+    final_nodes: [200, 1000]
+    scenarios:
+      - scenario_name: ba_benchmark
+        alpha: 1.0
+        beta: 0.0
+        phi: 0.0
+        kappa: 2
+        K: very_large
+      - scenario_name: capacity_only
+        alpha: 1.0
+        beta: 1.0
+        phi: 0.0
+        kappa: 2
+        K: 16
+      - scenario_name: spatial_only
+        alpha: 1.0
+        beta: 0.0
+        phi: 1.0
+        kappa: 2
+        K: very_large
+      - scenario_name: general_model
+        alpha: 1.0
+        beta: 1.0
+        phi: 1.0
+        kappa: 2
+        K: 16
+
+  sensitivity:
+    type: one_factor
+    replications: 30
+    final_nodes: [1000]
+    baseline:
+      alpha: 1.0
+      beta: 1.0
+      phi: 1.0
+      kappa: 2
+      K: 16
+    vary:
+      alpha: [0.5, 1.0, 1.5]
+      beta: [0.0, 0.5, 1.0, 2.0]
+      phi: [0.0, 0.5, 1.0, 2.0]
+      kappa: [1, 2, 4]
+      K: [8, 16, 32, very_large]
+
+  beta_k_heatmap:
+    type: grid
+    replications: 30
+    final_nodes: [1000]
+    fixed:
+      alpha: 1.0
+      phi: 1.0
+      kappa: 2
+      K: 16
+    beta: [0.0, 0.5, 1.0, 2.0]
+    K: [8, 16, 32, very_large]
+
+  full_grid:
+    type: grid
+    replications: 50
+    final_nodes: [200, 1000]
+    alpha: [0.5, 1.0, 1.5]
+    beta: [0.0, 0.5, 1.0, 2.0]
+    phi: [0.0, 0.5, 1.0, 2.0]
+    kappa: [1, 2, 4]
+    K: [8, 16, 32, very_large]

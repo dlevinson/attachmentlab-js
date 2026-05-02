@@ -1,0 +1,5 @@
+scenarioId,scenarioLabel,replications,earlyStopRate,truncationRate,meanDegree_mean,maxDegree_mean,degreeGini_mean,shareAtCapacity_mean,connectedComponents_mean,largestComponentShare_mean,averageClustering_mean,averagePathLengthLargestComponent_mean,meanEdgeLength_mean,totalNetworkLength_mean,cyclomaticNumber_mean
+ba_benchmark,BA benchmark,20,0,0,4,39.9,0.38851440000000004,0,1,1,0.08240271582845679,3.41408032128514,0.5285369507139323,264.2684753569662,251
+capacity_only,Capacity only,20,0,0,4,8,0.277242,0.09200000000000001,1,1,0.022337619047619044,4.127553413654618,0.5175812103780542,258.79060518902713,251
+spatial_only,Spatial only,20,0,0,4,40.9,0.3848440000000001,0,1,1,0.08242763512844212,3.440387148594378,0.3620309531782516,181.01547658912574,251
+general_model,General model,20,0,0,4,15.45,0.3360616,0.002800000000000001,1,1,0.034879081474081475,3.8754698795180715,0.3634079830393415,181.70399151967075,251

@@ -1,0 +1,4 @@
+scenarioId,scenarioLabel,maxDegree,degreeGini,shareAtCapacity,averageClustering,earlyStopRate,targetMaxDegree,targetDegreeGini,targetShareAtCapacity,targetAverageClustering,maxDegreeRelDiff,degreeGiniRelDiff,shareAtCapacityRelDiff,averageClusteringRelDiff
+constant_capacity,Constant K = 16,16,0.3452875000000001,0.0075,0.058886231823731816,0,16,0.337,0.0039,0.0096,0,0.02459198813056397,0.9230769230769231,5.133982481638731
+uniform_capacity,"Uniform U[8,24]",18,0.35053750000000017,0,0.0679540557481734,0,22.94,0.354,0.0019,0.0121,0.21534437663469927,0.009781073446327155,1,4.616037665138298
+lognormal_capacity,Lognormal mean ≈ 16,25.5,0.3580000000000001,0,0.06148254143161798,0,48.69,0.382,0.0019,0.0197,0.4762784966112138,0.06282722513088981,1,2.1209411894222328
