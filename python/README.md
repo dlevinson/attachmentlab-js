@@ -29,18 +29,18 @@ alpha = 1, beta = 0, phi = 0, K_i = very_large, kappa = m
 
 ## Project Structure
 
-- [`src/general_attachment.py`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/src/general_attachment.py) implements the growth model.
-- [`src/metrics.py`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/src/metrics.py) computes run-level network outcomes.
-- [`src/tail_fits.py`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/src/tail_fits.py) performs degree-tail diagnostics.
-- [`src/plots.py`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/src/plots.py) generates publication-ready figures.
-- [`src/run_experiments.py`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/src/run_experiments.py) is the command-line entry point.
-- [`configs/benchmark.yaml`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/configs/benchmark.yaml) defines reproducible experiment suites.
-- [`configs/benchmark_fast.yaml`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/configs/benchmark_fast.yaml) defines the compact benchmark used for the checked-in output bundle.
-- [`tests/test_general_attachment.py`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/tests/test_general_attachment.py) covers core logic and BA special-case checks.
+- [`src/general_attachment.py`](src/general_attachment.py) implements the growth model.
+- [`src/metrics.py`](src/metrics.py) computes run-level network outcomes.
+- [`src/tail_fits.py`](src/tail_fits.py) performs degree-tail diagnostics.
+- [`src/plots.py`](src/plots.py) generates publication-ready figures.
+- [`src/run_experiments.py`](src/run_experiments.py) is the command-line entry point.
+- [`configs/benchmark.yaml`](configs/benchmark.yaml) defines reproducible experiment suites.
+- [`configs/benchmark_fast.yaml`](configs/benchmark_fast.yaml) defines the compact benchmark used for the checked-in output bundle.
+- [`tests/test_general_attachment.py`](tests/test_general_attachment.py) covers core logic and BA special-case checks.
 
 ## Run The Experiments
 
-Create an environment with the dependencies listed in [`pyproject.toml`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/pyproject.toml), then run from this `python/` directory:
+Create an environment with the dependencies listed in [`pyproject.toml`](pyproject.toml), then run from this `python/` directory:
 
 ```bash
 python -m src.run_experiments --config configs/benchmark.yaml
@@ -64,8 +64,8 @@ To regenerate figures, LaTeX tables, captions, and the acceptance summary from e
 python -m src.run_experiments --config configs/benchmark_fast.yaml --postprocess-only
 ```
 
-Outputs are written deterministically to [`../results/benchmark`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/results/benchmark).
-The compact executed bundle in this workspace is written to [`../results/benchmark_fast`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/results/benchmark_fast).
+Outputs are written deterministically to [`../results/benchmark`](../results/benchmark).
+The compact executed bundle in this workspace is written to [`../results/benchmark_fast`](../results/benchmark_fast).
 
 ## Reproducibility Notes
 
@@ -77,4 +77,4 @@ The compact executed bundle in this workspace is written to [`../results/benchma
 
 ## Runtime
 
-The larger [`configs/benchmark.yaml`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/configs/benchmark.yaml) file preserves the broader specification, including a 50-replication full-grid suite. The compact [`configs/benchmark_fast.yaml`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/python/configs/benchmark_fast.yaml) file is the practical interactive-run counterpart used to generate the saved outputs in this session.
+The larger [`configs/benchmark.yaml`](configs/benchmark.yaml) file preserves the broader specification, including a 50-replication full-grid suite. The compact [`configs/benchmark_fast.yaml`](configs/benchmark_fast.yaml) file is the practical interactive-run counterpart used to generate the saved outputs in this session.

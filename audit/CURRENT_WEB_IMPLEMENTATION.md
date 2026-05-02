@@ -1,13 +1,13 @@
 # Current Standalone Implementation Behavior
 
-This document describes what the current standalone browser implementation in [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js) actually does today. It does not describe desired behavior unless the code already implements it.
+This document describes what the current standalone browser implementation in [`web/main.js`](../web/main.js) actually does today. It does not describe desired behavior unless the code already implements it.
 
 ## Scope
 
 This summary is for the currently active browser-openable build:
 
-- [`web/index.html`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/index.html)
-- [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js)
+- [`web/index.html`](../web/index.html)
+- [`web/main.js`](../web/main.js)
 
 The React/TypeScript app under `src/` exists, but the active standalone debugging loop the user has been interacting with is the monolithic `web/main.js` build.
 

@@ -1,6 +1,6 @@
 # Browser-First Audit Note (2026-04-07)
 
-This note records the first remediation cycle against the standalone browser model in [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js). The aim of this cycle was not to redesign the model. The aim was to identify confirmed implementation mismatches, repair the ones we could do cleanly, and tighten the next testing tranche so remaining anomalies are more interpretable.
+This note records the first remediation cycle against the standalone browser model in [`web/main.js`](../web/main.js). The aim of this cycle was not to redesign the model. The aim was to identify confirmed implementation mismatches, repair the ones we could do cleanly, and tighten the next testing tranche so remaining anomalies are more interpretable.
 
 ## Confirmed mismatches
 
@@ -38,7 +38,7 @@ This mismatch already showed up in interpretation: newer interior nodes could sc
 
 ### Browser model
 
-The following fixes were applied in [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js):
+The following fixes were applied in [`web/main.js`](../web/main.js):
 
 - `computeFeasibleProbabilities(...)` is now capacity-only. Mesh, locality, and planarity screens stay outside the kernel.
 - `crossingDiagnostics(...)` now uses the same interior-intersection test as split/reject logic.

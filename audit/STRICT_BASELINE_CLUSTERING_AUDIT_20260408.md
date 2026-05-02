@@ -22,16 +22,16 @@ The relevant intended baseline settings are:
 
 The most important code paths inspected were:
 
-- seed construction in [src/standalone/browser-core.js](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/standalone/browser-core.js)
-- attachment weight computation in [src/standalone/browser-core.js](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/standalone/browser-core.js)
-- sequential neighbor selection in [src/standalone/browser-core.js](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/standalone/browser-core.js)
-- clustering metric computation in [src/metrics/networkMetrics.ts](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/metrics/networkMetrics.ts)
+- seed construction in [src/standalone/browser-core.js](../src/standalone/browser-core.js)
+- attachment weight computation in [src/standalone/browser-core.js](../src/standalone/browser-core.js)
+- sequential neighbor selection in [src/standalone/browser-core.js](../src/standalone/browser-core.js)
+- clustering metric computation in [src/metrics/networkMetrics.ts](../src/metrics/networkMetrics.ts)
 
 ## Findings
 
 ### 1. The clustering metric itself looks standard
 
-`averageClustering(...)` in [src/metrics/networkMetrics.ts](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/metrics/networkMetrics.ts) computes the mean of local clustering coefficients over all nodes:
+`averageClustering(...)` in [src/metrics/networkMetrics.ts](../src/metrics/networkMetrics.ts) computes the mean of local clustering coefficients over all nodes:
 
 - degree `< 2` contributes `0`
 - for each node, it counts links among neighbors

@@ -1,6 +1,6 @@
 # Intended Model Behavior
 
-This document states the intended behavior of the generalized preferential-attachment model in human-readable form. It is the target specification for auditing the current standalone browser implementation in [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js).
+This document states the intended behavior of the generalized preferential-attachment model in human-readable form. It is the target specification for auditing the current standalone browser implementation in [`web/main.js`](../web/main.js).
 
 ## Baseline model
 

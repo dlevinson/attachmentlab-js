@@ -1,6 +1,6 @@
 # Intended vs Implemented Audit
 
-This audit compares the intended model behavior in [`audit/INTENDED_MODEL_BEHAVIOR.md`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/audit/INTENDED_MODEL_BEHAVIOR.md) with the current standalone implementation in [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js).
+This audit compares the intended model behavior in [`audit/INTENDED_MODEL_BEHAVIOR.md`](./INTENDED_MODEL_BEHAVIOR.md) with the current standalone implementation in [`web/main.js`](../web/main.js).
 
 ## Primary findings
 
@@ -8,9 +8,9 @@ This audit compares the intended model behavior in [`audit/INTENDED_MODEL_BEHAVI
 
 **Current code**
 
-- [`web/main.js:346`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L346) `isMeshAdjacentCandidate(...)`
-- [`web/main.js:1303`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1303) `computeFeasibleProbabilities(...)`
-- [`web/main.js:1534`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1534) `selectSequentialNeighbors(...)`
+- [`web/main.js:346`](../web/main.js#L346) `isMeshAdjacentCandidate(...)`
+- [`web/main.js:1303`](../web/main.js#L1303) `computeFeasibleProbabilities(...)`
+- [`web/main.js:1534`](../web/main.js#L1534) `selectSequentialNeighbors(...)`
 
 **Mismatch**
 
@@ -26,7 +26,7 @@ So mesh mode is not just a spatial visualization or placement bias. It changes t
 
 **Current code**
 
-- [`web/main.js:2213`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L2213) `stepSimulation(...)`
+- [`web/main.js:2213`](../web/main.js#L2213) `stepSimulation(...)`
 
 **Mismatch**
 
@@ -36,8 +36,8 @@ The intended baseline model says that if no feasible nodes exist, growth stops a
 
 **Current code**
 
-- [`web/main.js:636`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L636) `bestRescueLatticeCandidate(...)`
-- [`web/main.js:2262`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L2262) rescue invocation inside `stepSimulation(...)`
+- [`web/main.js:636`](../web/main.js#L636) `bestRescueLatticeCandidate(...)`
+- [`web/main.js:2262`](../web/main.js#L2262) rescue invocation inside `stepSimulation(...)`
 
 **Mismatch**
 
@@ -47,8 +47,8 @@ The intended model does not contain a rescue-site pass. The current cleanup tran
 
 **Current code**
 
-- [`web/main.js:1152`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1152) `createSeedGraph(...)`
-- especially [`web/main.js:1266`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1266)
+- [`web/main.js:1152`](../web/main.js#L1152) `createSeedGraph(...)`
+- especially [`web/main.js:1266`](../web/main.js#L1266)
 
 **Mismatch**
 
@@ -58,8 +58,8 @@ This cleanup tranche removes the post-seed capacity raising and instead rejects 
 
 **Current code**
 
-- [`web/main.js:1360`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1360) `frontierArrivalPoint(...)`
-- [`web/main.js:1481`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1481) `chooseArrivalPoint(...)`
+- [`web/main.js:1360`](../web/main.js#L1360) `frontierArrivalPoint(...)`
+- [`web/main.js:1481`](../web/main.js#L1481) `chooseArrivalPoint(...)`
 
 **Mismatch**
 
@@ -76,9 +76,9 @@ The current code implements these ideas through layered fallback heuristics rath
 
 **Current code**
 
-- [`web/main.js:395`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L395) `unsaturatedFrontierNodes(...)`
-- [`web/main.js:484`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L484) `projectedLatticeCandidates(...)`
-- [`web/main.js:1360`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1360) `frontierArrivalPoint(...)`
+- [`web/main.js:395`](../web/main.js#L395) `unsaturatedFrontierNodes(...)`
+- [`web/main.js:484`](../web/main.js#L484) `projectedLatticeCandidates(...)`
+- [`web/main.js:1360`](../web/main.js#L1360) `frontierArrivalPoint(...)`
 
 **Mismatch**
 
@@ -90,8 +90,8 @@ This likely contributes to the strange late-stage edge behavior the user has bee
 
 **Current code**
 
-- enforcement: [`web/main.js:815`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L815)
-- diagnostics: [`web/main.js:1815`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1815)
+- enforcement: [`web/main.js:815`](../web/main.js#L815)
+- diagnostics: [`web/main.js:1815`](../web/main.js#L1815)
 
 **Mismatch**
 
@@ -101,7 +101,7 @@ The planarity engine uses `segmentIntersectionPoint(...)`, which ignores endpoin
 
 **Current code**
 
-- [`web/main.js:945`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L945) `applyConnectionWithPlanarity(...)`
+- [`web/main.js:945`](../web/main.js#L945) `applyConnectionWithPlanarity(...)`
 
 **Mismatch**
 
@@ -118,7 +118,7 @@ That is a different network-growth mechanism, not just a stricter admissibility 
 
 **Current code**
 
-- [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js) contains the engine, metrics, exports, and UI together.
+- [`web/main.js`](../web/main.js) contains the engine, metrics, exports, and UI together.
 
 **Mismatch**
 
@@ -128,8 +128,8 @@ The architecture doc says the engine should be modular and UI-agnostic, but the 
 
 **Current code**
 
-- [`web/main.js:1481`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L1481) `chooseArrivalPoint(...)`
-- [`web/main.js:3586`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L3586) `renderNetworkLatticeOverlay(...)`
+- [`web/main.js:1481`](../web/main.js#L1481) `chooseArrivalPoint(...)`
+- [`web/main.js:3586`](../web/main.js#L3586) `renderNetworkLatticeOverlay(...)`
 
 **Mismatch**
 
@@ -141,7 +141,7 @@ That makes it possible for users to see “those orange sites look right” whil
 
 **Current code**
 
-- [`web/main.js:447`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js#L447) `projectedLatticeGeometry(...)`
+- [`web/main.js:447`](../web/main.js#L447) `projectedLatticeGeometry(...)`
 
 **Mismatch**
 

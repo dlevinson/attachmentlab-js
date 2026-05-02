@@ -2,15 +2,15 @@
 
 This repository now has two distinct workspaces:
 
-- [`src/`](/Users/dlev2617/Documents/Code/attachmentlab-js/src) contains the new React + TypeScript browser app.
-- [`web/`](/Users/dlev2617/Documents/Code/attachmentlab-js/web) contains a browser-openable deliverable with one `index.html` and one bundled-style `main.js`.
-- [`python/`](/Users/dlev2617/Documents/Code/attachmentlab-js/python) contains the legacy Python simulation study and its reproducible experiment pipeline.
+- [`src/`](src) contains the new React + TypeScript browser app.
+- [`web/`](web) contains a browser-openable deliverable with one `index.html` and one bundled-style `main.js`.
+- [`python/`](python) contains the legacy Python simulation study and its reproducible experiment pipeline.
 
 The browser app is being built as the primary product: an interactive research tool for simulating, visualising, comparing, and exporting generalized preferential-attachment networks while preserving true model coordinates in the main network view.
 
-If you want the simplest browser entry point, open [`web/index.html`](/Users/dlev2617/Documents/Code/attachmentlab-js/web/index.html). It loads the standalone [`web/main.js`](/Users/dlev2617/Documents/Code/attachmentlab-js/web/main.js) app and uses CDN copies of Cytoscape.js and D3.
+If you want the simplest browser entry point, open [`web/index.html`](web/index.html). It loads the standalone [`web/main.js`](web/main.js) app and uses CDN copies of Cytoscape.js and D3.
 
-If you want a standalone end-user guide for that browser-openable version, see [`USER_GUIDE.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/USER_GUIDE.md).
+If you want a standalone end-user guide for that browser-openable version, see [`USER_GUIDE.md`](USER_GUIDE.md).
 
 ## Browser App Scope
 
@@ -25,14 +25,14 @@ The web app is designed to let a researcher:
 
 ## Repository Layout
 
-- [`package.json`](/Users/dlev2617/Documents/Code/attachmentlab-js/package.json) defines the web app toolchain.
-- [`src/types/`](/Users/dlev2617/Documents/Code/attachmentlab-js/src/types) contains shared TypeScript contracts.
-- [`src/model/`](/Users/dlev2617/Documents/Code/attachmentlab-js/src/model) contains the pure simulation engine port.
-- [`src/metrics/`](/Users/dlev2617/Documents/Code/attachmentlab-js/src/metrics) contains graph metrics and tail diagnostics.
-- [`src/components/`](/Users/dlev2617/Documents/Code/attachmentlab-js/src/components) contains the main research-tool interface panels.
-- [`src/workers/`](/Users/dlev2617/Documents/Code/attachmentlab-js/src/workers) contains the batch execution worker.
-- [`MODEL.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/MODEL.md), [`METHODS.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/METHODS.md), and [`ARCHITECTURE.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/ARCHITECTURE.md) document the model, metrics, and code layout.
-- [`python/README.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/python/README.md) documents the legacy Python workflow.
+- [`package.json`](package.json) defines the web app toolchain.
+- [`src/types/`](src/types) contains shared TypeScript contracts.
+- [`src/model/`](src/model) contains the pure simulation engine port.
+- [`src/metrics/`](src/metrics) contains graph metrics and tail diagnostics.
+- [`src/components/`](src/components) contains the main research-tool interface panels.
+- [`src/workers/`](src/workers) contains the batch execution worker.
+- [`MODEL.md`](MODEL.md), [`METHODS.md`](METHODS.md), and [`ARCHITECTURE.md`](ARCHITECTURE.md) document the model, metrics, and code layout.
+- [`python/README.md`](python/README.md) documents the legacy Python workflow.
 
 ## Working Areas
 
@@ -58,14 +58,14 @@ npm run analyze:all -- --medium
 
 Omit the profile flag for the largest paper-facing run.
 
-The main app entry point is [`src/app/App.tsx`](/Users/dlev2617/Documents/Code/attachmentlab-js/src/app/App.tsx).
+The main app entry point is [`src/app/App.tsx`](src/app/App.tsx).
 
 The main research-analysis references are:
 
-- [`TESTING_STRATEGY.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/TESTING_STRATEGY.md)
-- [`EXPERIMENT_RUNBOOK.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/EXPERIMENT_RUNBOOK.md)
-- [`FULL_MODEL_TEST_SUITE.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/FULL_MODEL_TEST_SUITE.md)
-- [`audit/PAPER_REPLICATION_TARGETS_20260407.md`](/Users/dlev2617/Documents/Code/attachmentlab-js/audit/PAPER_REPLICATION_TARGETS_20260407.md)
+- [`TESTING_STRATEGY.md`](TESTING_STRATEGY.md)
+- [`EXPERIMENT_RUNBOOK.md`](EXPERIMENT_RUNBOOK.md)
+- [`FULL_MODEL_TEST_SUITE.md`](FULL_MODEL_TEST_SUITE.md)
+- [`audit/PAPER_REPLICATION_TARGETS_20260407.md`](audit/PAPER_REPLICATION_TARGETS_20260407.md)
 
 For the browser-openable standalone version:
 

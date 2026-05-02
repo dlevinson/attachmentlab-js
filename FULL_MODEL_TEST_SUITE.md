@@ -135,7 +135,7 @@ Profile guidance:
 
 The paper-facing replication suite and the broader full-model suite should be interpreted together. The replication suite checks whether the corrected shared core still reproduces the benchmark envelope described in the paper. The broader suite asks what the extensions add beyond that envelope.
 
-For the dedicated extension-first program, see [BEYOND_PAPER_RESEARCH_PLAN.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/BEYOND_PAPER_RESEARCH_PLAN.md).
+For the dedicated extension-first program, see [BEYOND_PAPER_RESEARCH_PLAN.md](BEYOND_PAPER_RESEARCH_PLAN.md).
 
 For a paper-facing comparison bundle around the strongest extension claims, use
 the focused runner:

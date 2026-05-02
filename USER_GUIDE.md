@@ -2,7 +2,7 @@
 
 This guide is for the standalone browser-deliverable version of the lab:
 
-- [web/index.html](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/index.html)
+- [web/index.html](web/index.html)
 
 It explains how to use the `file://` tool as a research lab for generalized preferential attachment, planarity, mesh framing, and accessibility experiments.
 
@@ -16,7 +16,7 @@ open web/index.html
 
 The standalone app loads:
 
-- [web/main.js](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js)
+- [web/main.js](web/main.js)
 - Cytoscape.js from `unpkg`
 - D3 from `jsdelivr`
 
@@ -64,7 +64,7 @@ This is where you define the scenario and control execution.
 
 If you want a fast baseline workflow:
 
-1. Open [web/index.html](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/index.html).
+1. Open [web/index.html](web/index.html).
 2. Choose a `Preset`.
 3. Leave `Simulation` tab active.
 4. Click `Run once`.
@@ -426,7 +426,7 @@ Important caveats:
 - `Transport accessibility` is disabled above `600` nodes in the standalone browser build to keep the UI responsive.
 - Candidate-site and potential-site accessibility are also disabled above `600` realized nodes in the standalone browser build.
 - The standalone app is best for interactive exploration, figure generation, and light-to-medium browser-side batching.
-- Larger replication programs are better handled through the analysis scripts documented in [README.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/README.md).
+- Larger replication programs are better handled through the analysis scripts documented in [README.md](README.md).
 
 ## Suggested Workflows
 
@@ -465,10 +465,10 @@ Important caveats:
 
 For deeper background:
 
-- [MODEL.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/MODEL.md)
-- [METHODS.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/METHODS.md)
-- [ARCHITECTURE.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/ARCHITECTURE.md)
-- [TESTING_STRATEGY.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/TESTING_STRATEGY.md)
-- [EXPERIMENT_RUNBOOK.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/EXPERIMENT_RUNBOOK.md)
+- [MODEL.md](MODEL.md)
+- [METHODS.md](METHODS.md)
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+- [TESTING_STRATEGY.md](TESTING_STRATEGY.md)
+- [EXPERIMENT_RUNBOOK.md](EXPERIMENT_RUNBOOK.md)
 
 If you are only using the browser-deliverable tool, this guide plus the in-app notation cards should be enough to get started.

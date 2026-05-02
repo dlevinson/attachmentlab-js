@@ -287,7 +287,7 @@ This family should remain available for future extensions such as:
 
 ## Metrics
 
-The existing graph metrics in [METHODS.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/METHODS.md) should remain the core summaries. But mechanism-level diagnostics are just as important.
+The existing graph metrics in [METHODS.md](METHODS.md) should remain the core summaries. But mechanism-level diagnostics are just as important.
 
 The experiment program should always record:
 

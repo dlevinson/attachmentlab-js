@@ -5,10 +5,10 @@ The repository is split into two workspaces:
 - `src/` for the browser app
 - `python/` for the legacy reproducible study
 
-During the current audit/remediation phase, the active implementation reference is the shared standalone engine source in [`src/standalone/browser-core.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/standalone/browser-core.js). The browser-deliverable [`web/main.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/web/main.js) should now be treated as a generated artifact built from:
+During the current audit/remediation phase, the active implementation reference is the shared standalone engine source in [`src/standalone/browser-core.js`](src/standalone/browser-core.js). The browser-deliverable [`web/main.js`](web/main.js) should now be treated as a generated artifact built from:
 
-- [`src/standalone/browser-core.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/standalone/browser-core.js)
-- [`src/standalone/browser-app.js`](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/src/standalone/browser-app.js)
+- [`src/standalone/browser-core.js`](src/standalone/browser-core.js)
+- [`src/standalone/browser-app.js`](src/standalone/browser-app.js)
 
 The tranche harnesses and the TypeScript parity wrapper should consume that shared core source directly so browser delivery, TS simulation, and experiment scripts stop drifting.
 

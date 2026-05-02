@@ -3,7 +3,7 @@
 This note lists the main gaps that were not fully resolvable inside the current workspace session.
 
 1. The manuscript now reflects a stronger revision benchmark, but not the full intended batch.
-The current paper is written against [network_science_revision.yaml](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/configs/network_science_revision.yaml), with outputs in [results/benchmark_revision](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/results/benchmark_revision). That revision benchmark is meaningfully deeper than the earlier fast pass, but it is still smaller than the broader [benchmark.yaml](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/configs/benchmark.yaml) full-grid / 50-replication design.
+The current paper is written against [network_science_revision.yaml](../python/configs/network_science_revision.yaml), with outputs in [results/benchmark_revision](../results/benchmark_revision). That revision benchmark is meaningfully deeper than the earlier fast pass, but it is still smaller than the broader [benchmark.yaml](../python/configs/benchmark.yaml) full-grid / 50-replication design.
 
 2. No empirical section was added.
 Per your stated priority, the revised paper is framed as a theory-plus-simulation contribution. It does not yet estimate the model on observed network growth data or compare fit against BA on real cases.

@@ -1,6 +1,6 @@
 # EXPERIMENT RUNBOOK
 
-This runbook turns the high-level strategy in [TESTING_STRATEGY.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/TESTING_STRATEGY.md) into a practical sequence of experiment tranches.
+This runbook turns the high-level strategy in [TESTING_STRATEGY.md](TESTING_STRATEGY.md) into a practical sequence of experiment tranches.
 
 It is intentionally short. It is meant to be used while running the app, not as a second theory document.
 
@@ -236,7 +236,7 @@ That runner is organized around:
 - accessibility semantics as direct growth rules
 - planarity × accessibility interaction
 
-The detailed design is in [BEYOND_PAPER_RESEARCH_PLAN.md](/Users/dlev2617/Documents/Code/GTNG%20General%20Theory%20of%20Network%20Growth/BEYOND_PAPER_RESEARCH_PLAN.md).
+The detailed design is in [BEYOND_PAPER_RESEARCH_PLAN.md](BEYOND_PAPER_RESEARCH_PLAN.md).
 
 Once the broad beyond-paper suite identifies stable mechanisms, use the focused
 runner:
