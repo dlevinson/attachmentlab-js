@@ -19,9 +19,6 @@ landing page at [`web/documentation.html`](web/documentation.html).
 - Code module: `STREET-JS/repos/attachmentlab-js`
 - Paper and research workspace: `Code/attachmentlab-paper`
 
-The old `Code/attachmentlab-js` path is intentionally left as a compatibility
-symlink so older `file://` links and local bookmarks still resolve.
-
 ## Run The Module
 
 Open the module landing page:
