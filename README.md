@@ -1,9 +1,9 @@
-# Attachment Lab
+# ATTACHMENTLAB
 
-Attachment Lab is a browser-openable STREET-style module for exploring
-access-based network growth. The release bundle is designed to run directly from
-[`web/index.html`](web/index.html) with a companion module landing page at
-[`web/documentation.html`](web/documentation.html).
+ATTACHMENTLAB is a browser-openable STREET-style module for exploring
+access-based transport network growth. The release bundle is designed to run
+directly from [`web/index.html`](web/index.html) with a companion module
+landing page at [`web/documentation.html`](web/documentation.html).
 
 ## What This Repository Contains
 
@@ -13,6 +13,14 @@ access-based network growth. The release bundle is designed to run directly from
 - [`web/documentation.html`](web/documentation.html): module documentation page.
 - [`web/index.html`](web/index.html): runnable browser app.
 - [`web/main.js`](web/main.js): generated standalone runtime.
+
+## Canonical Locations
+
+- Code module: `STREET-JS/repos/attachmentlab-js`
+- Paper and research workspace: `Code/attachmentlab-paper`
+
+The old `Code/attachmentlab-js` path is intentionally left as a compatibility
+symlink so older `file://` links and local bookmarks still resolve.
 
 ## Run The Module
 
@@ -47,4 +55,4 @@ This regenerates [`web/main.js`](web/main.js) from:
 - The app uses CDN-hosted copies of Cytoscape.js and D3, so first load normally
   requires an internet connection.
 - Paper manuscripts, benchmark outputs, and broader research artifacts are kept
-  outside this module repository.
+  outside this module repository in the separate paper workspace.
