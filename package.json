@@ -1,42 +1,9 @@
 {
-  "name": "general-attachment-lab",
+  "name": "attachmentlab-js",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build && npm run build:web-standalone",
-    "build:web-standalone": "node tools/build-standalone-web.mjs",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "analyze:paper": "vite-node tools/run-paper-replication.ts",
-    "analyze:paper:detach": "node tools/launch-paper-replication-detached.mjs",
-    "analyze:full": "vite-node tools/run-full-model-suite.ts",
-    "analyze:beyond": "vite-node tools/run-beyond-paper-suite.ts",
-    "analyze:beyond:focused": "vite-node tools/run-beyond-paper-focused.ts",
-    "analyze:all": "vite-node tools/run-research-program.ts",
-    "analyze:convergence": "vite-node tools/run-high-n-convergence.ts"
-  },
-  "dependencies": {
-    "cytoscape": "^3.30.2",
-    "d3": "^7.9.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "zustand": "^4.5.5"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/d3": "^7.4.3",
-    "@types/node": "^22.13.10",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
-    "jsdom": "^26.0.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.0",
-    "vitest": "^3.0.7"
+    "build": "node tools/build-standalone-web.mjs",
+    "build:web-standalone": "node tools/build-standalone-web.mjs"
   }
 }

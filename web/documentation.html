@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>General Attachment Lab documentation</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #101828;
+        --muted: #475467;
+        --line: #d0d5dd;
+        --panel: rgba(255, 255, 255, 0.94);
+        --brand: #0b4f6c;
+        --brand-soft: #e8f1f5;
+        --shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+        font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+        background:
+          radial-gradient(circle at top left, rgba(11, 79, 108, 0.08), transparent 32%),
+          linear-gradient(180deg, #f6f8fb 0%, #edf1f6 100%);
+        color: var(--ink);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: transparent;
+      }
+
+      a {
+        color: var(--brand);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .page {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 1.25rem;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid rgba(208, 213, 221, 0.95);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.55rem;
+        color: var(--brand);
+        font-size: 0.92rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      h1, h2, h3 {
+        margin: 0;
+        line-height: 1.15;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 650;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 650;
+        margin-bottom: 0.75rem;
+      }
+
+      h3 {
+        font-size: 1.05rem;
+        font-weight: 650;
+        margin-bottom: 0.45rem;
+      }
+
+      p {
+        margin: 0.65rem 0 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        min-height: 2.75rem;
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #ffffff;
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .button--primary {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #ffffff;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .section {
+        padding: 1.2rem 1.25rem;
+      }
+
+      .section + .section {
+        margin-top: 1rem;
+      }
+
+      ol, ul {
+        margin: 0.5rem 0 0;
+        padding-left: 1.25rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      li + li {
+        margin-top: 0.35rem;
+      }
+
+      .callout {
+        margin-top: 0.9rem;
+        padding: 0.85rem 0.95rem;
+        border-radius: 12px;
+        border: 1px solid #d0d5dd;
+        background: #f8fafc;
+      }
+
+      .cards {
+        display: grid;
+        gap: 0.85rem;
+      }
+
+      .mini-card {
+        padding: 0.95rem 1rem;
+        border: 1px solid #eaecf0;
+        border-radius: 14px;
+        background: #fcfcfd;
+      }
+
+      .mini-card p {
+        margin-top: 0.4rem;
+      }
+
+      .footer-note {
+        margin-top: 1rem;
+        padding: 1rem 1.1rem;
+        border: 1px solid #eaecf0;
+        border-radius: 14px;
+        background: #ffffff;
+      }
+
+      .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      @media (max-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .two-column {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding: 1.2rem;
+        }
+
+        h1 {
+          font-size: 1.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel hero">
+        <p class="eyebrow">STREET module documentation</p>
+        <h1>General Attachment Lab</h1>
+        <p>
+          General Attachment Lab is a browser-based research and teaching module for
+          access-based network growth. It lets users simulate preferential attachment
+          under capacity constraints, spatial cost deterrence, mesh framing,
+          planarity handling, and accessibility-weighted growth, while preserving the
+          true simulated coordinates of the evolving network.
+        </p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="./index.html">Run app</a>
+          <a class="button" href="#quick-start">Quick start</a>
+          <a class="button" href="#packaging">Packaging notes</a>
+        </div>
+      </section>
+
+      <div class="grid" id="quick-start">
+        <section class="panel section">
+          <h2>Quick Start</h2>
+          <ol>
+            <li>Open the app with <a href="./index.html">Run app</a>.</li>
+            <li>Choose a preset such as <strong>BA benchmark</strong> or <strong>Access-based model</strong>.</li>
+            <li>Click <strong>Run once</strong> to generate a full network, or <strong>Step arrival</strong> to inspect the growth process incrementally.</li>
+            <li>Use the network view, metrics, and charts to compare morphology, degree distribution, clustering, and accessibility.</li>
+            <li>Switch to <strong>Comparison</strong> or <strong>Batch</strong> when you want side-by-side scenarios or replicated summaries.</li>
+          </ol>
+          <div class="callout">
+            <strong>Direct-open note.</strong>
+            <p>
+              This module is packaged to work from <code>file://</code> using
+              <a href="./index.html">web/index.html</a>. It loads its standalone
+              JavaScript runtime from <code>web/main.js</code>.
+            </p>
+          </div>
+        </section>
+
+        <section class="panel section">
+          <h2>At a glance</h2>
+          <div class="cards">
+            <article class="mini-card">
+              <h3>What it shows</h3>
+              <p>
+                Growth of a spatial network under degree preference, capacity limits,
+                spatial cost, multi-link entry, planarity rules, and accessibility semantics.
+              </p>
+            </article>
+            <article class="mini-card">
+              <h3>What you can inspect</h3>
+              <p>
+                True-coordinate network geometry, tail diagnostics, clustering,
+                saturation, connectedness, and transport accessibility fields.
+              </p>
+            </article>
+            <article class="mini-card">
+              <h3>What you can export</h3>
+              <p>
+                Graph views, tables, scenario snapshots, and browser-side batch summaries
+                for paper figures or classroom exercises.
+              </p>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel section">
+        <h2>How To Use The App</h2>
+        <div class="two-column">
+          <div>
+            <h3>Top-level tabs</h3>
+            <ul>
+              <li><strong>Simulation</strong>: main interactive mode.</li>
+              <li><strong>Comparison</strong>: compare the current run against saved or copied scenarios.</li>
+              <li><strong>Batch</strong>: run replications and export summaries.</li>
+              <li><strong>Paper mode</strong>: cleaner presentation mode for figure production.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Core controls</h3>
+            <ul>
+              <li><strong>Run once</strong>: run from the current parameter set to termination.</li>
+              <li><strong>Step arrival</strong>: advance by one arriving node.</li>
+              <li><strong>Play / Pause</strong>: animate repeated arrival steps using the current delay.</li>
+              <li><strong>Reset</strong>: rebuild the simulation from the current parameters and seed.</li>
+            </ul>
+          </div>
+        </div>
+        <p>
+          The app uses a left-hand parameter column, a center network-and-charts
+          column, and a right-hand metrics and accessibility column.
+        </p>
+      </section>
+
+      <section class="panel section">
+        <h2>Example Uses</h2>
+        <ul>
+          <li><strong>Baseline comparison:</strong> compare BA benchmark, capacity-only, spatial-only, and Access-based model outcomes.</li>
+          <li><strong>Planarity exercise:</strong> switch between <code>none</code>, <code>reject_crossings</code>, and <code>split_crossings</code> to see how planar constraints alter growth.</li>
+          <li><strong>Accessibility experiment:</strong> compare network, seed-only, and opportunity-based access semantics within the same split-capable regime.</li>
+          <li><strong>Batch replication:</strong> run repeated browser-side experiments to summarize mean edge length, clustering, tail shape, and saturation.</li>
+        </ul>
+      </section>
+
+      <section class="panel section">
+        <h2>Things To Notice</h2>
+        <ul>
+          <li>The default network view preserves true simulated coordinates rather than forcing a layout algorithm.</li>
+          <li>Attachment weights shown after a step refer to the first sequential target choice of the most recent arrival.</li>
+          <li><code>split_crossings</code> can create additional junction nodes beyond the exogenously arriving nodes.</li>
+          <li>Some transport accessibility calculations are intentionally limited at larger browser sizes for performance.</li>
+          <li>The standalone page uses CDN copies of Cytoscape.js and D3, so the first load normally requires internet access.</li>
+        </ul>
+      </section>
+
+      <section class="panel section">
+        <h2>Sidebar Parameters</h2>
+        <div class="two-column">
+          <div>
+            <h3>Simulation scope</h3>
+            <ul>
+              <li><code>N</code>: final number of exogenously arriving nodes.</li>
+              <li><code>kappa</code>: number of links each arriving node attempts to form.</li>
+              <li><code>RNG seed</code>: deterministic seed for reproducible runs.</li>
+              <li><code>Animation ms</code>: delay between arrivals when using Play.</li>
+              <li><code>Replications</code>: active in Batch mode.</li>
+            </ul>
+            <h3>Network initialization</h3>
+            <ul>
+              <li><code>Mesh mode</code> and mesh angle settings control lattice framing.</li>
+              <li><code>m0</code>, <code>K</code>, seed graph, and capacity mode control the starting network.</li>
+              <li>Heterogeneous capacity modes expose additional parameter controls.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Arrival and connectivity</h3>
+            <ul>
+              <li>Arrival modes control where new nodes appear before target choice.</li>
+              <li>Arrival preferences can rank candidate sites by accessibility.</li>
+              <li><code>alpha</code>, <code>beta</code>, <code>phi</code>, and <code>lambda</code> control the attachment kernel.</li>
+              <li>Selection rules and access semantics define how targets are weighted.</li>
+              <li>Planarity mode, mesh adjacency, and related topology controls determine feasible targets.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel section">
+        <h2>Reading The Output</h2>
+        <div class="two-column">
+          <div>
+            <h3>Network view</h3>
+            <ul>
+              <li>Nodes remain at their simulated coordinates in the unit square.</li>
+              <li>Split nodes and split links appear when <code>split_crossings</code> is active.</li>
+              <li>Optional overlays show lattice framing, coordinates, and scale cues.</li>
+              <li>Attachment-weight labels refer to the first sequential target choice of the most recent arrival.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Metrics and accessibility</h3>
+            <ul>
+              <li>Right-hand panels report degree inequality, saturation, connectedness, clustering, edge lengths, and split-node diagnostics.</li>
+              <li>The transport accessibility panel reports gravity and cumulative accessibility over realized network lengths.</li>
+              <li>These outputs are most informative when one mechanism changes at a time.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel section" id="packaging">
+        <h2>Packaging Notes</h2>
+        <p>
+          This release is designed to travel as a self-contained folder. Keep
+          <code>documentation.html</code>, <code>index.html</code>, and
+          <code>main.js</code> together in the same directory.
+        </p>
+        <p>
+          The standalone page uses CDN-hosted copies of Cytoscape.js and D3, so
+          first load normally requires an internet connection.
+        </p>
+      </section>
+
+      <section class="panel section">
+        <h2>References</h2>
+        <ul>
+          <li>Levinson, D., and Yerra, B. (2006). Self-Organization of Surface Transportation Networks. <em>Transportation Science</em>, 40(2), 179-188.</li>
+          <li>Liao, C.-F., Liu, H. X., and Levinson, D. M. (2009). Simulating Transportation for Realistic Engineering Education and Training: Engaging Undergraduate Students in Transportation Studies. <em>Transportation Research Record</em>, 2109, 12-21.</li>
+          <li>The current module extends the baseline generalized model into planarity- and accessibility-aware transport-growth experiments documented in this repository.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
