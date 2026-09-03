@@ -1,0 +1,458 @@
+{
+  "methods": {
+    "origins": "All exogenously supplied seed and arrival nodes",
+    "destinations": "All exogenously supplied seed and arrival nodes, unit weight",
+    "junctionTreatment": "Split-generated junctions retained as traversable graph nodes and assigned zero origin and destination weight",
+    "shortestPathCost": "Edge length",
+    "cumulativeRadius": 0.75,
+    "gravityDecay": 3
+  },
+  "correctedRuns": [
+    {
+      "scenarioId": "interaction_reject_none",
+      "scenarioLabel": "Reject / no access",
+      "replication": 0,
+      "seed": 3306612829,
+      "exogenousNodes": 220,
+      "generatedJunctions": 0,
+      "finalNodes": 220,
+      "finalEdges": 610,
+      "crossingCandidateLinksAdmitted": 0,
+      "splitActiveArrivalSteps": 0,
+      "meanGravityAccess": 63.97750870484107,
+      "meanCumulativeAccess": 187.47272727272727
+    },
+    {
+      "scenarioId": "interaction_reject_none",
+      "scenarioLabel": "Reject / no access",
+      "replication": 1,
+      "seed": 3289835210,
+      "exogenousNodes": 220,
+      "generatedJunctions": 0,
+      "finalNodes": 220,
+      "finalEdges": 610,
+      "crossingCandidateLinksAdmitted": 0,
+      "splitActiveArrivalSteps": 0,
+      "meanGravityAccess": 63.97750870484107,
+      "meanCumulativeAccess": 187.47272727272727
+    },
+    {
+      "scenarioId": "interaction_reject_none",
+      "scenarioLabel": "Reject / no access",
+      "replication": 2,
+      "seed": 3273057591,
+      "exogenousNodes": 220,
+      "generatedJunctions": 0,
+      "finalNodes": 220,
+      "finalEdges": 610,
+      "crossingCandidateLinksAdmitted": 0,
+      "splitActiveArrivalSteps": 0,
+      "meanGravityAccess": 63.97750870484107,
+      "meanCumulativeAccess": 187.47272727272727
+    },
+    {
+      "scenarioId": "interaction_reject_none",
+      "scenarioLabel": "Reject / no access",
+      "replication": 3,
+      "seed": 3256279972,
+      "exogenousNodes": 220,
+      "generatedJunctions": 0,
+      "finalNodes": 220,
+      "finalEdges": 610,
+      "crossingCandidateLinksAdmitted": 0,
+      "splitActiveArrivalSteps": 0,
+      "meanGravityAccess": 63.97750870484107,
+      "meanCumulativeAccess": 187.47272727272727
+    },
+    {
+      "scenarioId": "interaction_split_target",
+      "scenarioLabel": "Split / target access",
+      "replication": 0,
+      "seed": 1394131789,
+      "exogenousNodes": 220,
+      "generatedJunctions": 167,
+      "finalNodes": 387,
+      "finalEdges": 1098,
+      "crossingCandidateLinksAdmitted": 167,
+      "splitActiveArrivalSteps": 164,
+      "meanGravityAccess": 66.28695062937597,
+      "meanCumulativeAccess": 193.85454545454544
+    },
+    {
+      "scenarioId": "interaction_split_target",
+      "scenarioLabel": "Split / target access",
+      "replication": 1,
+      "seed": 1377354170,
+      "exogenousNodes": 220,
+      "generatedJunctions": 174,
+      "finalNodes": 394,
+      "finalEdges": 1114,
+      "crossingCandidateLinksAdmitted": 174,
+      "splitActiveArrivalSteps": 166,
+      "meanGravityAccess": 66.14571513007994,
+      "meanCumulativeAccess": 193.56363636363636
+    },
+    {
+      "scenarioId": "interaction_split_target",
+      "scenarioLabel": "Split / target access",
+      "replication": 2,
+      "seed": 1360576551,
+      "exogenousNodes": 220,
+      "generatedJunctions": 174,
+      "finalNodes": 394,
+      "finalEdges": 1122,
+      "crossingCandidateLinksAdmitted": 174,
+      "splitActiveArrivalSteps": 171,
+      "meanGravityAccess": 66.12287712073227,
+      "meanCumulativeAccess": 193.23636363636365
+    },
+    {
+      "scenarioId": "interaction_split_target",
+      "scenarioLabel": "Split / target access",
+      "replication": 3,
+      "seed": 1343798932,
+      "exogenousNodes": 220,
+      "generatedJunctions": 175,
+      "finalNodes": 395,
+      "finalEdges": 1125,
+      "crossingCandidateLinksAdmitted": 175,
+      "splitActiveArrivalSteps": 170,
+      "meanGravityAccess": 65.96603127930851,
+      "meanCumulativeAccess": 193.2
+    },
+    {
+      "scenarioId": "interaction_split_both_seed",
+      "scenarioLabel": "Split / both with seed access",
+      "replication": 0,
+      "seed": 3528001473,
+      "exogenousNodes": 220,
+      "generatedJunctions": 173,
+      "finalNodes": 393,
+      "finalEdges": 1115,
+      "crossingCandidateLinksAdmitted": 173,
+      "splitActiveArrivalSteps": 168,
+      "meanGravityAccess": 66.3246819489748,
+      "meanCumulativeAccess": 194.5909090909091
+    },
+    {
+      "scenarioId": "interaction_split_both_seed",
+      "scenarioLabel": "Split / both with seed access",
+      "replication": 1,
+      "seed": 3511223854,
+      "exogenousNodes": 220,
+      "generatedJunctions": 173,
+      "finalNodes": 393,
+      "finalEdges": 1115,
+      "crossingCandidateLinksAdmitted": 173,
+      "splitActiveArrivalSteps": 168,
+      "meanGravityAccess": 66.3246819489748,
+      "meanCumulativeAccess": 194.5909090909091
+    },
+    {
+      "scenarioId": "interaction_split_both_seed",
+      "scenarioLabel": "Split / both with seed access",
+      "replication": 2,
+      "seed": 3494446235,
+      "exogenousNodes": 220,
+      "generatedJunctions": 173,
+      "finalNodes": 393,
+      "finalEdges": 1115,
+      "crossingCandidateLinksAdmitted": 173,
+      "splitActiveArrivalSteps": 168,
+      "meanGravityAccess": 66.3246819489748,
+      "meanCumulativeAccess": 194.5909090909091
+    },
+    {
+      "scenarioId": "interaction_split_both_seed",
+      "scenarioLabel": "Split / both with seed access",
+      "replication": 3,
+      "seed": 3477668616,
+      "exogenousNodes": 220,
+      "generatedJunctions": 173,
+      "finalNodes": 393,
+      "finalEdges": 1115,
+      "crossingCandidateLinksAdmitted": 173,
+      "splitActiveArrivalSteps": 168,
+      "meanGravityAccess": 66.3246819489748,
+      "meanCumulativeAccess": 194.5909090909091
+    },
+    {
+      "scenarioId": "interaction_split_both_opportunity",
+      "scenarioLabel": "Split / both with opportunity access",
+      "replication": 0,
+      "seed": 2855869937,
+      "exogenousNodes": 220,
+      "generatedJunctions": 172,
+      "finalNodes": 392,
+      "finalEdges": 1114,
+      "crossingCandidateLinksAdmitted": 172,
+      "splitActiveArrivalSteps": 169,
+      "meanGravityAccess": 66.52497685737634,
+      "meanCumulativeAccess": 195
+    },
+    {
+      "scenarioId": "interaction_split_both_opportunity",
+      "scenarioLabel": "Split / both with opportunity access",
+      "replication": 1,
+      "seed": 2839092318,
+      "exogenousNodes": 220,
+      "generatedJunctions": 172,
+      "finalNodes": 392,
+      "finalEdges": 1114,
+      "crossingCandidateLinksAdmitted": 172,
+      "splitActiveArrivalSteps": 169,
+      "meanGravityAccess": 66.52497685737634,
+      "meanCumulativeAccess": 195
+    },
+    {
+      "scenarioId": "interaction_split_both_opportunity",
+      "scenarioLabel": "Split / both with opportunity access",
+      "replication": 2,
+      "seed": 2822314699,
+      "exogenousNodes": 220,
+      "generatedJunctions": 172,
+      "finalNodes": 392,
+      "finalEdges": 1114,
+      "crossingCandidateLinksAdmitted": 172,
+      "splitActiveArrivalSteps": 169,
+      "meanGravityAccess": 66.52497685737634,
+      "meanCumulativeAccess": 195
+    },
+    {
+      "scenarioId": "interaction_split_both_opportunity",
+      "scenarioLabel": "Split / both with opportunity access",
+      "replication": 3,
+      "seed": 2805537080,
+      "exogenousNodes": 220,
+      "generatedJunctions": 172,
+      "finalNodes": 392,
+      "finalEdges": 1114,
+      "crossingCandidateLinksAdmitted": 172,
+      "splitActiveArrivalSteps": 169,
+      "meanGravityAccess": 66.52497685737634,
+      "meanCumulativeAccess": 195
+    }
+  ],
+  "summaries": [
+    {
+      "scenarioId": "interaction_reject_none",
+      "scenarioLabel": "Reject / no access",
+      "replications": 4,
+      "metrics": {
+        "exogenousNodes": {
+          "mean": 220,
+          "sd": 0,
+          "min": 220,
+          "max": 220
+        },
+        "generatedJunctions": {
+          "mean": 0,
+          "sd": 0,
+          "min": 0,
+          "max": 0
+        },
+        "finalNodes": {
+          "mean": 220,
+          "sd": 0,
+          "min": 220,
+          "max": 220
+        },
+        "finalEdges": {
+          "mean": 610,
+          "sd": 0,
+          "min": 610,
+          "max": 610
+        },
+        "crossingCandidateLinksAdmitted": {
+          "mean": 0,
+          "sd": 0,
+          "min": 0,
+          "max": 0
+        },
+        "splitActiveArrivalSteps": {
+          "mean": 0,
+          "sd": 0,
+          "min": 0,
+          "max": 0
+        },
+        "meanGravityAccess": {
+          "mean": 63.97750870484107,
+          "sd": 0,
+          "min": 63.97750870484107,
+          "max": 63.97750870484107
+        },
+        "meanCumulativeAccess": {
+          "mean": 187.47272727272727,
+          "sd": 0,
+          "min": 187.47272727272727,
+          "max": 187.47272727272727
+        }
+      }
+    },
+    {
+      "scenarioId": "interaction_split_target",
+      "scenarioLabel": "Split / target access",
+      "replications": 4,
+      "metrics": {
+        "exogenousNodes": {
+          "mean": 220,
+          "sd": 0,
+          "min": 220,
+          "max": 220
+        },
+        "generatedJunctions": {
+          "mean": 172.5,
+          "sd": 3.696845502136472,
+          "min": 167,
+          "max": 175
+        },
+        "finalNodes": {
+          "mean": 392.5,
+          "sd": 3.696845502136472,
+          "min": 387,
+          "max": 395
+        },
+        "finalEdges": {
+          "mean": 1114.75,
+          "sd": 12.093386622447824,
+          "min": 1098,
+          "max": 1125
+        },
+        "crossingCandidateLinksAdmitted": {
+          "mean": 172.5,
+          "sd": 3.696845502136472,
+          "min": 167,
+          "max": 175
+        },
+        "splitActiveArrivalSteps": {
+          "mean": 167.75,
+          "sd": 3.304037933599835,
+          "min": 164,
+          "max": 171
+        },
+        "meanGravityAccess": {
+          "mean": 66.13039353987418,
+          "sd": 0.13142339042788054,
+          "min": 65.96603127930851,
+          "max": 66.28695062937597
+        },
+        "meanCumulativeAccess": {
+          "mean": 193.46363636363634,
+          "sd": 0.30766157930901544,
+          "min": 193.2,
+          "max": 193.85454545454544
+        }
+      }
+    },
+    {
+      "scenarioId": "interaction_split_both_seed",
+      "scenarioLabel": "Split / both with seed access",
+      "replications": 4,
+      "metrics": {
+        "exogenousNodes": {
+          "mean": 220,
+          "sd": 0,
+          "min": 220,
+          "max": 220
+        },
+        "generatedJunctions": {
+          "mean": 173,
+          "sd": 0,
+          "min": 173,
+          "max": 173
+        },
+        "finalNodes": {
+          "mean": 393,
+          "sd": 0,
+          "min": 393,
+          "max": 393
+        },
+        "finalEdges": {
+          "mean": 1115,
+          "sd": 0,
+          "min": 1115,
+          "max": 1115
+        },
+        "crossingCandidateLinksAdmitted": {
+          "mean": 173,
+          "sd": 0,
+          "min": 173,
+          "max": 173
+        },
+        "splitActiveArrivalSteps": {
+          "mean": 168,
+          "sd": 0,
+          "min": 168,
+          "max": 168
+        },
+        "meanGravityAccess": {
+          "mean": 66.3246819489748,
+          "sd": 0,
+          "min": 66.3246819489748,
+          "max": 66.3246819489748
+        },
+        "meanCumulativeAccess": {
+          "mean": 194.5909090909091,
+          "sd": 0,
+          "min": 194.5909090909091,
+          "max": 194.5909090909091
+        }
+      }
+    },
+    {
+      "scenarioId": "interaction_split_both_opportunity",
+      "scenarioLabel": "Split / both with opportunity access",
+      "replications": 4,
+      "metrics": {
+        "exogenousNodes": {
+          "mean": 220,
+          "sd": 0,
+          "min": 220,
+          "max": 220
+        },
+        "generatedJunctions": {
+          "mean": 172,
+          "sd": 0,
+          "min": 172,
+          "max": 172
+        },
+        "finalNodes": {
+          "mean": 392,
+          "sd": 0,
+          "min": 392,
+          "max": 392
+        },
+        "finalEdges": {
+          "mean": 1114,
+          "sd": 0,
+          "min": 1114,
+          "max": 1114
+        },
+        "crossingCandidateLinksAdmitted": {
+          "mean": 172,
+          "sd": 0,
+          "min": 172,
+          "max": 172
+        },
+        "splitActiveArrivalSteps": {
+          "mean": 169,
+          "sd": 0,
+          "min": 169,
+          "max": 169
+        },
+        "meanGravityAccess": {
+          "mean": 66.52497685737634,
+          "sd": 0,
+          "min": 66.52497685737634,
+          "max": 66.52497685737634
+        },
+        "meanCumulativeAccess": {
+          "mean": 195,
+          "sd": 0,
+          "min": 195,
+          "max": 195
+        }
+      }
+    }
+  ]
+}

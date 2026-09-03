@@ -13,6 +13,7 @@ landing page at [`web/documentation.html`](web/documentation.html).
 - [`web/documentation.html`](web/documentation.html): module documentation page.
 - [`web/index.html`](web/index.html): runnable browser app.
 - [`web/main.js`](web/main.js): generated standalone runtime.
+- [`reproducibility/access-based-network-growth/`](reproducibility/access-based-network-growth/): code, deterministic configurations, saved outputs, and paper-facing figures for the Applied Network Science manuscript.
 
 ## Canonical Locations
 
@@ -51,5 +52,5 @@ This regenerates [`web/main.js`](web/main.js) from:
 - The web bundle is designed to travel as a small self-contained module folder.
 - The app uses CDN-hosted copies of Cytoscape.js and D3, so first load normally
   requires an internet connection.
-- Paper manuscripts, benchmark outputs, and broader research artifacts are kept
-  outside this module repository in the separate paper workspace.
+- The curated paper reproducibility archive is versioned in this repository.
+- Working manuscripts, reviewer correspondence, and exploratory research artifacts remain in the separate paper workspace.

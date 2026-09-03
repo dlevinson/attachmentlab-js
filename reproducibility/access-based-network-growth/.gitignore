@@ -1,0 +1,10 @@
+.cache/
+.pytest_cache/
+.venv/
+node_modules/
+python/.pytest_cache/
+python/.venv/
+results/beyond_paper_focused_test/
+results/paper_replication_smoke_test/
+*.tsbuildinfo
+*.egg-info/

@@ -1,0 +1,5 @@
+hypothesis,status,evidence
+Adding capacity truncates the upper tail and raises the share of saturated nodes,supported,Capacity-only runs had lower mean max degree=True and higher saturation share=True relative to the BA benchmark across executed N values.
+Raising phi shortens edge lengths and may increase local clustering,supported,"From phi=0 to phi=2.0, mean edge length decreased=True and clustering increased=True."
+Raising kappa reduces tree-like structure and may increase redundancy or clustering,supported,"From kappa=1.0 to kappa=4, cyclomatic number increased=True and clustering increased=True."
+The BA benchmark approximately reproduces a heavy-tailed degree pattern,supported,The dominant preferred tail model for the pooled BA benchmark distributions was 'lognormal'.

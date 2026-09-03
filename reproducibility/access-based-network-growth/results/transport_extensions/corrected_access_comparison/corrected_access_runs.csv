@@ -1,0 +1,17 @@
+scenarioId,scenarioLabel,replication,seed,exogenousNodes,generatedJunctions,finalNodes,finalEdges,crossingCandidateLinksAdmitted,splitActiveArrivalSteps,meanGravityAccess,meanCumulativeAccess
+interaction_reject_none,Reject / no access,0,3306612829,220,0,220,610,0,0,63.97750870484107,187.47272727272727
+interaction_reject_none,Reject / no access,1,3289835210,220,0,220,610,0,0,63.97750870484107,187.47272727272727
+interaction_reject_none,Reject / no access,2,3273057591,220,0,220,610,0,0,63.97750870484107,187.47272727272727
+interaction_reject_none,Reject / no access,3,3256279972,220,0,220,610,0,0,63.97750870484107,187.47272727272727
+interaction_split_target,Split / target access,0,1394131789,220,167,387,1098,167,164,66.28695062937597,193.85454545454544
+interaction_split_target,Split / target access,1,1377354170,220,174,394,1114,174,166,66.14571513007994,193.56363636363636
+interaction_split_target,Split / target access,2,1360576551,220,174,394,1122,174,171,66.12287712073227,193.23636363636365
+interaction_split_target,Split / target access,3,1343798932,220,175,395,1125,175,170,65.96603127930851,193.2
+interaction_split_both_seed,Split / both with seed access,0,3528001473,220,173,393,1115,173,168,66.3246819489748,194.5909090909091
+interaction_split_both_seed,Split / both with seed access,1,3511223854,220,173,393,1115,173,168,66.3246819489748,194.5909090909091
+interaction_split_both_seed,Split / both with seed access,2,3494446235,220,173,393,1115,173,168,66.3246819489748,194.5909090909091
+interaction_split_both_seed,Split / both with seed access,3,3477668616,220,173,393,1115,173,168,66.3246819489748,194.5909090909091
+interaction_split_both_opportunity,Split / both with opportunity access,0,2855869937,220,172,392,1114,172,169,66.52497685737634,195
+interaction_split_both_opportunity,Split / both with opportunity access,1,2839092318,220,172,392,1114,172,169,66.52497685737634,195
+interaction_split_both_opportunity,Split / both with opportunity access,2,2822314699,220,172,392,1114,172,169,66.52497685737634,195
+interaction_split_both_opportunity,Split / both with opportunity access,3,2805537080,220,172,392,1114,172,169,66.52497685737634,195

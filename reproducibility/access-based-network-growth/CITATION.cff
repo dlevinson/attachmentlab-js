@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please cite the associated manuscript when using this archive."
+title: "Reproducibility archive for Access-Based Network Growth"
+type: software
+version: 1.0.0
+date-released: 2026-09-03
+authors:
+  - family-names: Levinson
+    given-names: David
+  - family-names: Sarkar
+    given-names: Somwrita
+  - family-names: Tajik
+    given-names: Nazanin
+  - family-names: Ermagun
+    given-names: Alireza
+repository-code: "https://github.com/dlevinson/attachmentlab-js/tree/main/reproducibility/access-based-network-growth"
+preferred-citation:
+  type: article
+  title: "Access-Based Network Growth: Preferential Attachment with Capacity, Cost, and Connectivity"
+  authors:
+    - family-names: Levinson
+      given-names: David
+    - family-names: Sarkar
+      given-names: Somwrita
+    - family-names: Tajik
+      given-names: Nazanin
+    - family-names: Ermagun
+      given-names: Alireza
+  journal: "Applied Network Science"
+  year: 2026

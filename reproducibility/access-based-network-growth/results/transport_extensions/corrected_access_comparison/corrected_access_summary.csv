@@ -1,0 +1,5 @@
+scenarioId,scenarioLabel,replications,gravityMean,gravitySd,cumulativeMean,cumulativeSd,admittedCandidateLinksMean,admittedCandidateLinksSd,splitActiveStepsMean,splitActiveStepsSd,generatedJunctionsMean,generatedJunctionsSd
+interaction_reject_none,Reject / no access,4,63.97750870484107,0,187.47272727272727,0,0,0,0,0,0,0
+interaction_split_target,Split / target access,4,66.13039353987418,0.13142339042788054,193.46363636363634,0.30766157930901544,172.5,3.696845502136472,167.75,3.304037933599835,172.5,3.696845502136472
+interaction_split_both_seed,Split / both with seed access,4,66.3246819489748,0,194.5909090909091,0,173,0,168,0,173,0
+interaction_split_both_opportunity,Split / both with opportunity access,4,66.52497685737634,0,195,0,172,0,169,0,172,0

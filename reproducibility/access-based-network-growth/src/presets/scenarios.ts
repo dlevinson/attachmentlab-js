@@ -1,0 +1,76 @@
+import type { ScenarioPreset } from '../types/model';
+
+export const scenarioPresets: ScenarioPreset[] = [
+  {
+    id: 'ba_benchmark',
+    label: 'BA benchmark',
+    description: 'Classical preferential attachment with effectively unlimited capacity and no spatial deterrence.',
+    params: {
+      alpha: 1,
+      beta: 0,
+      phi: 0,
+      kappa: 2,
+      capacityMode: 'homogeneous',
+      capacityValue: 'very_large',
+      impedanceMode: 'power',
+    },
+  },
+  {
+    id: 'capacity_only',
+    label: 'Capacity only',
+    description: 'Finite capacity curbs hub growth without spatial cost.',
+    params: {
+      alpha: 1,
+      beta: 1,
+      phi: 0,
+      kappa: 2,
+      capacityMode: 'homogeneous',
+      capacityValue: 8,
+      impedanceMode: 'power',
+    },
+  },
+  {
+    id: 'spatial_only',
+    label: 'Spatial only',
+    description: 'Cost deterrence shortens edges while preserving preferential attachment.',
+    params: {
+      alpha: 1,
+      beta: 0,
+      phi: 1,
+      kappa: 2,
+      capacityMode: 'homogeneous',
+      capacityValue: 'very_large',
+      impedanceMode: 'power',
+    },
+  },
+  {
+    id: 'general_model',
+    label: 'General model',
+    description: 'Scale, capacity, and distance all contribute to attachment.',
+    params: {
+      alpha: 1,
+      beta: 1,
+      phi: 1,
+      kappa: 2,
+      capacityMode: 'homogeneous',
+      capacityValue: 16,
+      impedanceMode: 'power',
+    },
+  },
+  {
+    id: 'gridish_local_mesh',
+    label: 'Grid-ish exploratory',
+    description: 'Weak preference, sharp saturation, and strong local cost push toward mesh-like growth.',
+    params: {
+      alpha: 0.1,
+      beta: 2,
+      phi: 4,
+      kappa: 2,
+      m0: 4,
+      seedGraphType: 'grid',
+      capacityMode: 'homogeneous',
+      capacityValue: 4,
+      impedanceMode: 'power',
+    },
+  },
+];
