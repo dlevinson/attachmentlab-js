@@ -191,6 +191,20 @@ def fit_tail_models(degrees: np.ndarray, min_tail_size: int = 20) -> dict[str, A
         }
 
     tail = values[values >= best_result["kmin"]].astype(float)
+    unique_count = np.unique(tail).size
+    if unique_count <= 2:
+        # These selected supports describe observed saturation. Avoid reporting
+        # boundary-dependent fitted exponents or unreliable model comparisons.
+        return {
+            **{key: (value if key in {"tail_n", "kmin"} else math.nan)
+               for key, value in best_result.items()},
+            **{key: math.nan for key in (
+                "exp_lambda", "exp_loglik", "exp_aic",
+                "lognorm_sigma", "lognorm_scale", "lognorm_loglik", "lognorm_aic",
+                "llr_power_vs_exp", "llr_power_vs_lognorm",
+            )},
+            "preferred_model": "endpoint" if unique_count == 1 else "two_values",
+        }
     exp_fit = _fit_exponential(tail, int(best_result["kmin"]))
     lognorm_fit = _fit_lognormal(tail, int(best_result["kmin"]))
 

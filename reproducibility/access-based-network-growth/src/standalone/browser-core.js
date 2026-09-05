@@ -42,7 +42,7 @@ const PARAM_LIMITS = {
   kappa: { min: 1, max: 12 },
   m0: { min: 2, max: 100 },
   capacityValue: { min: 1, max: 1000 },
-  rngSeed: { min: 1, max: 2147483647 },
+  rngSeed: { min: 1, max: 4294967295 },
   animationSpeedMs: { min: 10, max: 5000 },
   replicationCount: { min: 1, max: 200 },
   capacityLow: { min: 0, max: 1000 },
@@ -3408,7 +3408,10 @@ function stepSimulation(input) {
   }
 
   const feasible = state.nodes.filter((node) => node.degree < node.capacity - 1e-9);
-  const currentAccessibility = computeTransportAccessibility(state.nodes, state.edges, state.params);
+  // Accessibility here is used only by access-weighted target selection.
+  const currentAccessibility = state.params.selectionKernelMode === 'access' && (state.params.accessSelectionStrength ?? 0) > 0
+    ? computeTransportAccessibility(state.nodes, state.edges, state.params)
+    : null;
   const accessSelectionContext = buildAccessSelectionContext(currentAccessibility, state.params);
   if (feasible.length === 0) {
     state.status = 'early_stopped';

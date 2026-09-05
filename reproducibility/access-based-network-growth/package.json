@@ -7,7 +7,7 @@
     "test": "vitest run",
     "verify": "cd python && uv run python ../tools/verify_reported_results.py",
     "reproduce:paper-visualisation": "vite-node tools/export_headline_representatives.ts",
-    "rerun:paper-visualisation-selection": "vite-node tools/run-paper-replication.ts --medium --output-root results/baseline_visualisation && vite-node tools/export_headline_representatives.ts",
+    "rerun:paper-visualisation-selection": "vite-node tools/rerun_paper_visualisation_selection.ts && vite-node tools/export_headline_representatives.ts",
     "reproduce:extensions": "vite-node tools/run-beyond-paper-focused.ts --medium --output-root results/transport_extensions && vite-node tools/export_beyond_paper_representatives.ts && vite-node tools/recompute_paper_access_comparison.ts",
     "figures:paper-visualisation": "cd python && uv run python ../tools/generate_headline_gallery_figures.py",
     "figures:extensions": "cd python && uv run python ../tools/generate_beyond_paper_snapshot_figures.py && uv run python ../tools/generate_extension_design_schematic.py",

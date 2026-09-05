@@ -135,7 +135,8 @@ def plot_capacity_heatmap(summary_df: pd.DataFrame, output_dir: Path, metric: st
     pivot = subset.pivot_table(index="beta", columns="K_label", values=metric).sort_index().reindex(columns=ordered_columns)
     fig, ax = plt.subplots(figsize=(6.8, 5.0))
     image = ax.imshow(pivot.to_numpy(), cmap="viridis", aspect="auto")
-    ax.set_xticks(np.arange(pivot.shape[1]), labels=[str(label) for label in pivot.columns])
+    # The archived very_large setting resolves to 1017 at N=1000, m0=5, kappa=2.
+    ax.set_xticks(np.arange(pivot.shape[1]), labels=["1017" if str(label) == "very_large" else str(label) for label in pivot.columns])
     ax.set_yticks(np.arange(pivot.shape[0]), labels=[str(label) for label in pivot.index])
     ax.set_xlabel("Capacity K")
     ax.set_ylabel(r"$\beta$")
@@ -203,7 +204,7 @@ def plot_sensitivity_panels(summary_df: pd.DataFrame, output_dir: Path) -> None:
         if parameter == "K":
             x_positions = np.arange(frame.shape[0])
             axis.plot(x_positions, frame[metric], marker="o")
-            axis.set_xticks(x_positions, labels=frame["varied_value"].astype(str))
+            axis.set_xticks(x_positions, labels=frame["varied_value"].astype(str).replace("very_large", "1017"))
         else:
             axis.plot(pd.to_numeric(frame["varied_value"], errors="coerce"), frame[metric], marker="o")
         axis.set_xlabel(parameter)

@@ -52,6 +52,7 @@ type RepresentativeState = {
   scenarioLabel: string;
   replication: number;
   seed: number;
+  effectiveSeed: number;
   metrics: Record<string, number | null>;
   nodes: RepresentativeNode[];
   edges: RepresentativeEdge[];
@@ -111,6 +112,7 @@ async function main() {
       rngSeed: chosen.seed,
     });
     const state = runSimulation(params);
+    if (state.params.rngSeed !== chosen.seed) throw new Error(`Seed changed for ${scenario.id}`);
     const access = engine.computeTransportAccessibility(state.nodes, state.edges, state.params);
     const nodeById = new Map(state.nodes.map((node) => [node.id, node]));
     const nodes: RepresentativeNode[] = state.nodes.map((node) => ({
@@ -144,6 +146,7 @@ async function main() {
       scenarioLabel: chosen.scenarioLabel,
       replication: chosen.replication,
       seed: chosen.seed,
+      effectiveSeed: state.params.rngSeed,
       metrics: chosen.metrics,
       nodes,
       edges,

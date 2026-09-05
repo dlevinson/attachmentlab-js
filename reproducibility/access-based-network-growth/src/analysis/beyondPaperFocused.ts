@@ -28,7 +28,7 @@ function profileSettings(profile: 'test' | 'smoke' | 'medium' | 'full') {
   return { n: 320, replications: 6 };
 }
 
-function summarizeRows(groupId: string, summaries: ReturnType<typeof runSimpleBatch>['summaries']) {
+export function summarizeRows(groupId: string, summaries: ReturnType<typeof runSimpleBatch>['summaries']) {
   return summaries.map((summary) => ({
     group: groupId,
     scenarioId: summary.scenarioId,
@@ -55,7 +55,7 @@ function summarizeRows(groupId: string, summaries: ReturnType<typeof runSimpleBa
   }));
 }
 
-function figureRows(
+export function figureRows(
   family: string,
   rows: ReturnType<typeof summarizeRows>,
   metrics: string[],

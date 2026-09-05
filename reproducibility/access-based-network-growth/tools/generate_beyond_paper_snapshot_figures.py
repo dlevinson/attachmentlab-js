@@ -32,7 +32,7 @@ def set_publication_style() -> None:
             "figure.dpi": 150,
             "savefig.dpi": 300,
             "font.size": 10,
-            "axes.titlesize": 11,
+            "axes.titlesize": 15,
             "axes.labelsize": 10,
             "legend.fontsize": 9,
             "xtick.labelsize": 9,
@@ -192,7 +192,8 @@ def plot_access_gallery(states):
         pad=0.06,
         aspect=40,
     )
-    cbar.set_label("Common-basis gravity accessibility")
+    cbar.set_label("Common-basis gravity accessibility", fontsize=14)
+    cbar.ax.tick_params(labelsize=13)
     cbar.ax.xaxis.set_label_position("top")
     cbar.ax.xaxis.set_ticks_position("top")
     save_figure(fig, "figure_extension_access_gallery")

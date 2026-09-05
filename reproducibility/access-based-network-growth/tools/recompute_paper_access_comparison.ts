@@ -9,6 +9,7 @@ type SourceRun = {
   scenarioLabel: string;
   replication: number;
   seed: number;
+  effectiveSeed?: number;
   metrics: Record<string, number | null>;
 };
 
@@ -20,7 +21,7 @@ type SourceScenario = {
 
 type SourcePayload = {
   accessInteraction: {
-    config: { scenarios: SourceScenario[]; replications: number };
+    config: { scenarios: SourceScenario[]; replications: number; accessibilityEvaluation?: string };
     runs: SourceRun[];
   };
 };
@@ -30,6 +31,7 @@ type CorrectedRun = {
   scenarioLabel: string;
   replication: number;
   seed: number;
+  effectiveSeed: number;
   exogenousNodes: number;
   generatedJunctions: number;
   finalNodes: number;
@@ -117,6 +119,10 @@ function representativeState(state: SimulationState, run: CorrectedRun) {
     radius: state.params.accessibilityRadius,
     decay: state.params.accessibilityDecay,
   });
+  if (state.params.rngSeed !== run.seed || state.nodes.length !== run.finalNodes || state.edges.length !== run.finalEdges
+    || Math.abs(access.meanGravity - run.meanGravityAccess) > 1e-10 || Math.abs(access.meanCumulative - run.meanCumulativeAccess) > 1e-10) {
+    throw new Error(`Representative replay disagrees with saved run ${run.scenarioId}:${run.replication}`);
+  }
   const nodeById = new Map(state.nodes.map((node) => [node.id, node]));
   const nodes: RepresentativeNode[] = state.nodes.map((node) => ({
     id: node.id,
@@ -167,9 +173,33 @@ async function main() {
   for (const sourceRun of source.accessInteraction.runs) {
     const scenario = scenarios.get(sourceRun.scenarioId);
     if (!scenario) throw new Error(`Missing scenario configuration: ${sourceRun.scenarioId}`);
+    if (process.argv.includes('--from-saved-runs')) {
+      if (source.accessInteraction.config.accessibilityEvaluation !== 'common_exogenous_network' || sourceRun.seed !== sourceRun.effectiveSeed
+        || correctedRuns.some((run) => run.scenarioId === sourceRun.scenarioId && run.effectiveSeed === sourceRun.effectiveSeed)) {
+        throw new Error(`Saved run lacks common-access or effective-seed validation: ${sourceRun.scenarioId}`);
+      }
+      const metric = (name: string) => {
+        const value = sourceRun.metrics[name];
+        if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(`Missing saved ${name}`);
+        return value;
+      };
+      const finalNodes = metric('nodeCount');
+      const generatedJunctions = metric('generatedIntersectionNodes');
+      if (finalNodes - generatedJunctions !== scenario.params.finalNodeCount) throw new Error('Exogenous node count changed');
+      correctedRuns.push({ scenarioId: sourceRun.scenarioId, scenarioLabel: sourceRun.scenarioLabel,
+        replication: sourceRun.replication, seed: sourceRun.seed, effectiveSeed: sourceRun.effectiveSeed,
+        exogenousNodes: finalNodes - generatedJunctions, generatedJunctions, finalNodes,
+        finalEdges: metric('edgeCount'), crossingCandidateLinksAdmitted: metric('crossingCandidatesAdmitted'),
+        splitActiveArrivalSteps: metric('splitEvents'), meanGravityAccess: metric('meanGravityAccess'),
+        meanCumulativeAccess: metric('meanCumulativeAccess') });
+      continue;
+    }
     console.log(`[common-access] ${sourceRun.scenarioId} replication ${sourceRun.replication + 1}`);
     const params = sanitizeSimulationParams({ ...scenario.params, rngSeed: sourceRun.seed });
     const state = runSimulation(params);
+    if (state.params.rngSeed !== sourceRun.seed || correctedRuns.some((run) => run.scenarioId === sourceRun.scenarioId && run.effectiveSeed === state.params.rngSeed)) {
+      throw new Error(`Invalid or duplicate effective seed for ${sourceRun.scenarioId}:${sourceRun.replication}`);
+    }
     const access = computeComparableNetworkAccessibility(state.nodes, state.edges, {
       radius: params.accessibilityRadius,
       decay: params.accessibilityDecay,
@@ -181,6 +211,7 @@ async function main() {
       scenarioLabel: sourceRun.scenarioLabel,
       replication: sourceRun.replication,
       seed: sourceRun.seed,
+      effectiveSeed: state.params.rngSeed,
       exogenousNodes,
       generatedJunctions,
       finalNodes: state.nodes.length,
@@ -208,8 +239,9 @@ async function main() {
   });
   const representatives = source.accessInteraction.config.scenarios.map((scenario) => {
     const selected = chooseRepresentative(correctedRuns.filter((run) => run.scenarioId === scenario.id));
-    const state = states.get(`${selected.scenarioId}:${selected.replication}`);
-    if (!state) throw new Error(`Missing rerun state for ${selected.scenarioId}:${selected.replication}`);
+    console.log(`[common-access representative] ${selected.scenarioId}:${selected.replication} seed ${selected.seed}`);
+    const state = states.get(`${selected.scenarioId}:${selected.replication}`)
+      ?? runSimulation(sanitizeSimulationParams({ ...scenario.params, rngSeed: selected.seed }));
     return representativeState(state, selected);
   });
 

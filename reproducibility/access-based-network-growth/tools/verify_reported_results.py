@@ -5,9 +5,51 @@ import json
 import math
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
+import networkx as nx
+from sync_paper_figures import SOURCES
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def verify_seeds(runs: list[dict], expected_per_scenario: int) -> None:
+    groups: dict[str, set[int]] = {}
+    for run in runs:
+        seed = run.get("effectiveSeed")
+        if not isinstance(seed, int) or seed != run["seed"] or not 1 <= seed <= 4294967295:
+            raise AssertionError(f"Requested/effective seed mismatch: {run['scenarioId']}")
+        group = groups.setdefault(run["scenarioId"], set())
+        if seed in group:
+            raise AssertionError(f"Duplicate effective seed in {run['scenarioId']}")
+        group.add(seed)
+    if any(len(seeds) != expected_per_scenario for seeds in groups.values()):
+        raise AssertionError("Incorrect independent replication count")
+    print(f"PASS effective seeds: {len(groups)} scenarios, {len(runs)} runs")
+
+
+def verify_representative_graph(state: dict) -> None:
+    nodes = {node["id"]: node for node in state["nodes"]}
+    graph = nx.Graph()
+    graph.add_nodes_from(nodes)
+    graph.add_edges_from((edge["source"], edge["target"]) for edge in state["edges"])
+    if len(graph) != len(nodes) or graph.number_of_edges() != len(state["edges"]) or nx.number_of_selfloops(graph):
+        raise AssertionError("Invalid representative simple graph")
+    if any(graph.degree(node_id) != node["degree"] for node_id, node in nodes.items()):
+        raise AssertionError("Stored degrees disagree with actual edges")
+    degrees = sorted(degree for _, degree in graph.degree())
+    count = len(degrees)
+    actual = {
+        "maxDegree": max(degrees),
+        "degreeGini": 2 * sum((index + 1) * value for index, value in enumerate(degrees)) / (count * sum(degrees)) - (count + 1) / count,
+        "averageClustering": nx.average_clustering(graph),
+        "meanEdgeLength": sum(math.hypot(nodes[u]["x"] - nodes[v]["x"], nodes[u]["y"] - nodes[v]["y"]) for u, v in graph.edges()) / graph.number_of_edges(),
+    }
+    for metric, value in actual.items():
+        if not math.isclose(value, state["metrics"][metric], rel_tol=0, abs_tol=1e-9):
+            raise AssertionError(f"Actual graph disagrees with representative metrics: {state['scenarioId']} {metric}")
+    if state.get("effectiveSeed") != state["seed"]:
+        raise AssertionError("Representative seed mismatch")
+    print(f"PASS actual graph metrics: {state['scenarioId']}")
 
 
 def read_rows(relative_path: str) -> list[dict[str, str]]:
@@ -79,8 +121,8 @@ def main() -> None:
 
     focused = read_rows("results/transport_extensions/focused_summary.csv")
     crossing = {
-        "planarity_free_none": (0.123, 0.5371, 357.0, 0.0, 0.0),
-        "planarity_free_reject": (0.776, 0.2659, 0.0, 0.0, 0.0),
+        "planarity_free_none": (0.123, 0.5118, 354.0, 0.0, 0.0),
+        "planarity_free_reject": (0.744, 0.2634, 0.0, 0.0, 0.0),
         "planarity_free_split": (0.170, 0.0046, 368.0, 93.0, 17626.0),
     }
     for scenario, expected in crossing.items():
@@ -96,15 +138,25 @@ def main() -> None:
         "corrected_access_summary.csv"
     )
     access_expected = {
-        "interaction_reject_none": (63.98, 187.47),
+        "interaction_reject_none": (64.50, 190.38),
         "interaction_split_target": (66.13, 193.46),
-        "interaction_split_both_seed": (66.32, 194.59),
-        "interaction_split_both_opportunity": (66.52, 195.00),
+        "interaction_split_both_seed": (66.32, 194.23),
+        "interaction_split_both_opportunity": (66.27, 193.98),
     }
     for scenario, expected in access_expected.items():
         row = select(access, scenarioId=scenario)
         check(f"{scenario} gravity access", row["gravityMean"], expected[0], 2)
         check(f"{scenario} cumulative access", row["cumulativeMean"], expected[1], 2)
+    expected_sds = {
+        "interaction_reject_none": (0.23, 1.20),
+        "interaction_split_target": (0.13, 0.31),
+        "interaction_split_both_seed": (0.17, 0.69),
+        "interaction_split_both_opportunity": (0.13, 0.48),
+    }
+    for scenario, expected in expected_sds.items():
+        row = select(access, scenarioId=scenario)
+        check(f"{scenario} gravity sample SD", row["gravitySd"], expected[0], 2)
+        check(f"{scenario} cumulative sample SD", row["cumulativeSd"], expected[1], 2)
 
     required_figures = [
         "figure_02_degree_ccdf.pdf",
@@ -124,6 +176,8 @@ def main() -> None:
         if not path.is_file() or path.stat().st_size == 0:
             raise AssertionError(f"Missing paper figure: {path}")
         print(f"PASS figure {name}")
+        if name in SOURCES and path.read_bytes() != SOURCES[name].read_bytes():
+            raise AssertionError(f"Paper-facing figure is stale: {name}")
 
     headline_root = ROOT / "results/baseline_visualisation"
     headline = json.loads((headline_root / "headline.json").read_text(encoding="utf-8"))
@@ -135,6 +189,7 @@ def main() -> None:
         for run in headline["runs"]
     }
     for state in representatives["states"]:
+        verify_representative_graph(state)
         key = (state["scenarioId"], state["replication"], state["seed"])
         source = source_runs.get(key)
         if source is None:
@@ -151,7 +206,20 @@ def main() -> None:
             raise AssertionError(f"Representative state {key} has {len(state['nodes'])} nodes")
         print(f"PASS representative state {key}")
 
-    print("All reported-value and figure checks passed.")
+    verify_seeds(headline["runs"], 6)
+    extension_root = ROOT / "results/transport_extensions"
+    focused_json = json.loads((extension_root / "focused_results.json").read_text())
+    for batch in focused_json.values():
+        verify_seeds(batch["runs"], 4)
+    for state in json.loads((extension_root / "representative_states.json").read_text())["states"]:
+        verify_representative_graph(state)
+    common = json.loads((extension_root / "corrected_access_comparison/corrected_access_results.json").read_text())
+    verify_seeds(common["correctedRuns"], 4)
+    for row in tails:
+        if row["preferred_model"] in {"endpoint", "two_values"}:
+            if any(row[field] not in {"", "nan"} for field in ("power_alpha", "power_aic", "exp_aic", "lognorm_aic")):
+                raise AssertionError("Degenerate support retains fitted values")
+    print("All reported-value, graph, seed-integrity, and figure checks passed.")
 
 
 if __name__ == "__main__":

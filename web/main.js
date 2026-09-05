@@ -48,7 +48,7 @@ const PARAM_LIMITS = {
   kappa: { min: 1, max: 12 },
   m0: { min: 2, max: 100 },
   capacityValue: { min: 1, max: 1000 },
-  rngSeed: { min: 1, max: 2147483647 },
+  rngSeed: { min: 1, max: 4294967295 },
   animationSpeedMs: { min: 10, max: 5000 },
   replicationCount: { min: 1, max: 200 },
   capacityLow: { min: 0, max: 1000 },

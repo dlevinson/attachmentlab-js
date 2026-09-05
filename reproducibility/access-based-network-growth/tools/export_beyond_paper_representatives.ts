@@ -50,6 +50,7 @@ type RepresentativeState = {
   group: 'planarityCore' | 'accessInteraction';
   replication: number;
   seed: number;
+  effectiveSeed?: number;
   semantics: string;
   metrics: Record<string, number | null>;
   nodes: RepresentativeNode[];
@@ -212,11 +213,15 @@ async function main() {
   const engine = getBrowserParityEngine();
 
   const states: RepresentativeState[] = [];
+  const previous: { states: RepresentativeState[] } = process.argv.includes('--reuse-valid-split')
+    ? JSON.parse(await fs.readFile(path.join(outputRoot, 'representative_states.json'), 'utf8'))
+    : { states: [] };
 
   ([
     ['planarityCore', source.planarityCore],
     ['accessInteraction', source.accessInteraction],
   ] as const).forEach(([group, payload]) => {
+    if (process.argv.includes('--crossing-only') && group !== 'planarityCore') return;
     const byScenario = new Map<string, FocusedRunRecord[]>();
     payload.runs.forEach((run) => {
       const bucket = byScenario.get(run.scenarioId) ?? [];
@@ -226,11 +231,20 @@ async function main() {
 
     for (const [scenarioId, runs] of byScenario.entries()) {
       const chosen = chooseRepresentativeRun(runs, group);
+      const reusable = previous.states.find((entry) => scenarioId === 'planarity_free_split'
+        && entry.scenarioId === scenarioId && entry.seed === chosen.seed && entry.seed <= 2147483647
+        && entry.replication === chosen.replication && JSON.stringify(entry.metrics) === JSON.stringify(chosen.metrics));
+      if (reusable) {
+        console.log(`[representatives] preserve valid split state seed ${chosen.seed}`);
+        states.push({ ...reusable, effectiveSeed: reusable.seed });
+        continue;
+      }
       console.log(
         `[representatives] ${group} ${scenarioId} replication ${chosen.replication + 1} seed ${chosen.seed}`,
       );
       const params = sanitizeSimulationParams({ ...scenarioParams[scenarioId as keyof typeof scenarioParams], rngSeed: chosen.seed });
       const state = runSimulation(params);
+      if (state.params.rngSeed !== chosen.seed) throw new Error(`Seed changed for ${scenarioId}`);
       const access = engine.computeTransportAccessibility(state.nodes, state.edges, state.params);
       const nodeById = new Map(state.nodes.map((node) => [node.id, node]));
       const nodes: RepresentativeNode[] = state.nodes.map((node) => ({
@@ -265,6 +279,7 @@ async function main() {
         group,
         replication: chosen.replication,
         seed: chosen.seed,
+        effectiveSeed: state.params.rngSeed,
         semantics: params.accessSemantics,
         metrics: chosen.metrics,
         nodes,

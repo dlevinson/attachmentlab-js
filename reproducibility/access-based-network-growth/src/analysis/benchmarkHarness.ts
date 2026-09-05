@@ -113,6 +113,9 @@ export function runSimpleBatch(config: SimpleBatchConfig): BatchResult {
       });
       const seed = deriveSeed(scenarioParams.rngSeed, scenario.id, replication);
       const state = runSimulation({ ...scenarioParams, rngSeed: seed });
+      if (state.params.rngSeed !== seed || runs.some((run) => run.scenarioId === scenario.id && run.effectiveSeed === state.params.rngSeed)) {
+        throw new Error(`Invalid or duplicate effective seed for ${scenario.id} replication ${replication}: requested ${seed}, used ${state.params.rngSeed}`);
+      }
       const transportAccessibility = config.accessibilityEvaluation === 'common_exogenous_network'
         ? computeComparableNetworkAccessibility(state.nodes, state.edges, {
             radius: state.params.accessibilityRadius,
@@ -140,6 +143,7 @@ export function runSimpleBatch(config: SimpleBatchConfig): BatchResult {
         scenarioLabel: scenario.label,
         replication,
         seed,
+        effectiveSeed: state.params.rngSeed,
         metrics,
         earlyStopped: state.status === 'early_stopped',
         terminationReason: state.terminationReason,

@@ -41,7 +41,7 @@ make test
 make verify
 ```
 
-`make test` runs the Python and TypeScript test suites. `make verify` reads the committed CSV and JSON outputs and checks the values quoted in the revised manuscript.
+`make test` runs the Python and TypeScript test suites. `make verify` checks the quoted values, distinct effective replication seeds, and representative-graph metrics reconstructed independently from the saved nodes and edges.
 
 ## Full reproduction
 
@@ -69,7 +69,7 @@ The complete six-replication selection process can be rerun with:
 npm run rerun:paper-visualisation-selection
 ```
 
-The selection rerun also computes the full metric and tail-diagnostic bundle for each candidate realisation and therefore has a substantially longer runtime.
+The selection rerun computes the metric and tail-diagnostic bundle for all 24 candidate realisations. Accessibility needed only for target guidance is skipped when that guidance is disabled; this leaves growth unchanged.
 
 Regenerate all paper-facing figures after the simulation commands:
 
@@ -92,7 +92,9 @@ The direct commands are recorded in `Makefile` and `package.json`.
 | Access-guided comparison | `results/transport_extensions/corrected_access_comparison/corrected_access_runs.csv` and `corrected_access_summary.csv` |
 | Representative graph and access figures | `paper-figures/` and the saved representative-state files under `results/` |
 
-The simulations use independent deterministic seed streams for each named suite. Identical parameter settings in different design blocks consequently have independent replication draws.
+The simulations use independent deterministic seed streams for each named suite. Identical parameter settings in different design blocks consequently have independent replication draws. TypeScript run ledgers store both the requested `seed` and the `effectiveSeed` retained by the simulation; the valid range is 1 through 4,294,967,295.
+
+The focused September 5 correction can be replayed on older saved transport outputs with `npx vite-node tools/correct_replication_seeds.ts`. It reruns configurations affected by the former signed-seed ceiling and checkpoints each completed configuration under `.cache/seed-correction`, keyed by source and configuration. `npx vite-node tools/recompute_paper_access_comparison.ts --from-saved-runs` summarises the validated common-access run ledger and replays the four selected representative graphs, checking their access values against the ledger. The default command replays every access run. `cd python && uv run python ../tools/refresh_saved_baseline_diagnostics.py` refreshes tail diagnostics and capacity-axis labels from saved baseline data.
 
 ## Checksums and citation
 

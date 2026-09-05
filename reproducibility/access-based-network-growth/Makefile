@@ -24,3 +24,4 @@ figures:
 	npm run figures:localisation
 	npm run figures:paper-visualisation
 	npm run figures:extensions
+	cd python && uv run python ../tools/sync_paper_figures.py

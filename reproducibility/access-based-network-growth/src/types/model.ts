@@ -211,6 +211,8 @@ export interface BatchRunRecord {
   scenarioLabel: string;
   replication: number;
   seed: number;
+  /** Seed stored by the simulation; absent only in legacy saved records. */
+  effectiveSeed?: number;
   metrics: MetricBundle;
   earlyStopped: boolean;
   terminationReason?: string;

@@ -45,3 +45,19 @@ def test_synthetic_zipf_tail_prefers_power_law() -> None:
     degrees = rng.zipf(a=2.5, size=12_000)
     fit = fit_tail_models(degrees, min_tail_size=200)
     assert fit["preferred_model"] == "power_law"
+
+
+def test_endpoint_reports_counts_without_boundary_fits() -> None:
+    fit = fit_tail_models(np.repeat(16, 40))
+    assert fit["tail_n"] == 40 and fit["kmin"] == 16
+    assert fit["preferred_model"] == "endpoint"
+    for key in ("power_alpha", "power_aic", "exp_aic", "lognorm_aic"):
+        assert math.isnan(fit[key])
+
+
+def test_two_value_support_reports_counts_without_model_ranking() -> None:
+    fit = fit_tail_models(np.array([15] * 18 + [16] * 4))
+    assert fit["tail_n"] == 22 and fit["kmin"] == 15
+    assert fit["preferred_model"] == "two_values"
+    for key in ("power_alpha", "power_aic", "exp_aic", "lognorm_aic"):
+        assert math.isnan(fit[key])
